@@ -1,0 +1,39 @@
+
+# Version - Compose file version that tells compose how to build and run containers
+version: '3.7'
+
+# Services: A list of all the containers that we want on my docker network
+services:
+
+    # MySQL service
+    mysqldb:
+        container_name: bedoff-mysql
+        image: 'mysql:latest'
+        hostname: bedoff-mysql
+        ports:
+            - '3310:3306'
+        # Environment used to create the relevant DB and user
+        environment:
+            MYSQL_DATABASE: bedoff_db
+            MYSQL_USER: bedoff
+            MYSQL_PASSWORD: bedoff
+            MYSQL_ROOT_PASSWORD: bedoff
+        # Specifying a restart policy for the containerized service
+        restart: always
+
+    # bedoff-backend service(web application service)
+    bedoff-backend:
+        container_name: bedoff-backend
+        hostname: bedoff-backend
+        build:
+            context: .
+        command: 'python3 manage.py runserver 0.0.0.0:8000'
+        volumes:
+            - '.:/bedoff'
+        ports:
+            - '8005:8000'
+        # This is for the debugger on the environment
+        stdin_open: true
+        tty: true
+        # Specifying a restart policy for the containerized service
+        restart: always
