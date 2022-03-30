@@ -37,6 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'bms',
+    'hotel',
+    'login'
 ]
 
 MIDDLEWARE = [
@@ -75,12 +78,8 @@ WSGI_APPLICATION = 'bedoff.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'bedoff_db',
-        'USER': 'bedoff',
-        'PASSWORD': 'bedoff_db',
-        'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
-        'PORT': '3310',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'bedoff_db'
     }
 }
 
