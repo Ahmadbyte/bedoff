@@ -49,7 +49,7 @@ class User(DetailMixin):
         return "user Id: "+str(self.id)
 
 
-class BankAccount(models.model):
+class BankAccount(models.Model):
     name = models.CharField(max_length=5)
     IFSC = models.CharField(max_length=50)
 
