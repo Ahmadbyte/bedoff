@@ -16,19 +16,23 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.urls import include, re_path
+from rest_framework_swagger.views import get_swagger_view
 
-import bms.models
-import hotel.models
-import login.apps
+import bms.views
+import hotel.views
+import login.views
+
+schema_view = get_swagger_view(title='Pastebin API')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # re_path(r"^user(?P<id>.+)$", login.models.user),
-    # re_path(r"^user$", login.apps.LoginConfig),
-    # re_path(r"^guestsByIds$", login.apps.LoginConfig),
-    re_path(r"^OrderUpload$", bms.models.BookingOrder),
-    re_path(r"^Hotel$", hotel.models.Hotel),
-    re_path(r"^BookingsByIds$", bms.models.Booking ),
-    re_path(r"^Bookings$", bms.models.Booking),
-    re_path(r"^Booking$", bms.models.Booking),
+    re_path(r'^$', schema_view),
+    re_path(r"^user(?P<id>.+)$", login.views.view),
+    re_path(r"^user$", login.views.view),
+    re_path(r"^guestsByIds$", login.views.view),
+    re_path(r"^OrderUpload$", bms.views.view),
+    re_path(r"^Hotel$", hotel.views.view),
+    re_path(r"^BookingsByIds$", bms.views.view ),
+    re_path(r"^Bookings$", bms.views.view),
+    re_path(r"^Booking$", bms.views.view)
 ]

@@ -37,7 +37,7 @@ class Booking(TimeLineMixin):
     # user_id=models.ForeignKey(Customer, on_delete=models.CASCADE)
     checkIn = models.DateField(auto_now=False, auto_now_add=False)
     CheckOut= models.DateField(auto_now=False, auto_now_add=False)
-    status = models.FloatField()
+    status = models.BooleanField()
     created_on = models.DateTimeField(auto_now=True, auto_now_add=False)
 
     def __str__(self):
