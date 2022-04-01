@@ -3,9 +3,9 @@ from django.db import models
 from django.db import models
 # from login.models import Customer,RoomManager
 from datetime import date
-
-from hotel.models import Hotel
 from login.models import DetailMixin
+from hotel.models import Hotel
+
 
 
 class TimeLineMixin(models.Model):
@@ -25,11 +25,17 @@ class BookingOrder(TimeLineMixin):
     source=models.CharField(max_length=50)
 
 class BookingGroup(TimeLineMixin):
-    orderId= models.ForeignKey(BookingOrder, on_delete=models.CASCADE)
+    orderId= models.ForeignKey(BookingOrder , on_delete=models.DO_NOTHING)
     checkIn = models.DateTimeField(auto_now=True, auto_now_add=False)
     checkOut = models.DateTimeField(auto_now=True, auto_now_add=False)
-    Hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE)
-    status=models.CharField(max_length=50)
+    Hotel = models.ForeignKey(Hotel,on_delete=models.DO_NOTHING)
+    NumberOfRooms = models.IntegerField()
+    SuggestedHotelList = models.CharField(max_length=100)
+    TypeOfBookings = models.CharField(max_length=100)
+    BookingType = models.CharField(max_length=100)
+    status = models.CharField(
+        max_length=2
+    )
     def __str__(self):
         return "Booking Group ID: "+str(self.id)
     # @property
@@ -45,6 +51,7 @@ class Booking(TimeLineMixin):
     BookingGroupId = models.ForeignKey(BookingGroup, on_delete=models.CASCADE)
     # user_id=models.ForeignKey(Customer, on_delete=models.CASCADE)
     Visitor= models.ForeignKey(Visitor, on_delete=models.CASCADE)
+
 
     def __str__(self):
         return "Booking ID: " + str(self.id)
