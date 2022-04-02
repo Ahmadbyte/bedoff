@@ -12,6 +12,7 @@ from bms.models import BookingGroup, BookingOrder, Vendor
 def view(request):
     vendor = Vendor(name = "Byjus")
     vendor.save()
-    order = BookingOrder.object.create(vendor = vendor , source = "manual")
-    bookingGroup = BookingGroup.object.create(order = order)
+    order = BookingOrder(vendor = vendor , source = "manual")
+    bookingGroup = BookingGroup(order = order)
+
     return Response({"message": "Hello for today! See you tomorrow!"})

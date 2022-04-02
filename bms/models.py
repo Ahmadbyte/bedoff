@@ -25,17 +25,30 @@ class BookingOrder(TimeLineMixin):
     source=models.CharField(max_length=50)
 
 class BookingGroup(TimeLineMixin):
+    Status = (
+        (1, 'In Progress'),
+        (2, 'Completed'),
+        (3, 'Closed'),
+        (4, 'Cancelled'),
+    )
+    BookingType = (
+        (1 , 'New Booking'),
+        (2, 'Extension')
+    )
+    TypeOfBookings = (
+        (1, 'HNS'),
+        (2, 'Relocation')
+    )
     orderId= models.ForeignKey(BookingOrder , on_delete=models.DO_NOTHING)
     checkIn = models.DateTimeField(auto_now=True, auto_now_add=False)
     checkOut = models.DateTimeField(auto_now=True, auto_now_add=False)
     Hotel = models.ForeignKey(Hotel,on_delete=models.DO_NOTHING)
+    PreferredHotels = models.CharField(max_length=50 , default="")
     NumberOfRooms = models.IntegerField()
     SuggestedHotelList = models.CharField(max_length=100)
-    TypeOfBookings = models.CharField(max_length=100)
-    BookingType = models.CharField(max_length=100)
-    status = models.CharField(
-        max_length=2
-    )
+    BookingType = models.IntegerField(choices=BookingType)
+    TypeOfBookings = models.IntegerField(choices=TypeOfBookings)
+    Status = models.IntegerField(choices=Status , default= 1)
     def __str__(self):
         return "Booking Group ID: "+str(self.id)
     # @property
@@ -43,6 +56,7 @@ class BookingGroup(TimeLineMixin):
     #     return date.today()>self.end_day
 
 class Visitor(DetailMixin):
+    EmployeeTNLID = models.CharField(max_length=100 , default= "")
 
     def __str__(self):
         return "Visitor Id: "+str(self.id)

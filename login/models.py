@@ -13,8 +13,14 @@ class DetailMixin(models.Model):
 
 
 class HotelStaff(DetailMixin):
+    StaffTyoe = (
+        ('RM', 'Regional Manager'),
+        ('OW', 'Owner'),
+        ('MN', 'Manager'),
+        ('RC', 'Receptionist'),
+    )
 
-    role =  models.CharField(max_length=5)
+    role =  models.CharField(max_length=2, choices=StaffTyoe)
     hotel= models.ForeignKey(Hotel,on_delete=models.DO_NOTHING)
 
     status = models.IntegerField()
