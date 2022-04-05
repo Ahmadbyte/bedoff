@@ -9,16 +9,6 @@ class UserSerializer(serializers.Serializer):
     username = serializers.CharField(max_length=100)
 
 
-# class BookingOrderSerializer(serializers.Serializer):
-#     class Meta:
-#         model = BookingOrder
-#         fields = ('id' , 'vendor' , 'ordered_on' , 'source')
-#     id = serializers.IntegerField()
-#     # vendor=VendorSerializer()
-#     ordered_on=serializers.DateTimeField()
-#     source=serializers.CharField()
-#
-
 class BookingGroupSerializer(serializers.Serializer):
     class Meta:
         model = BookingGroup

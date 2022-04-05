@@ -16,7 +16,7 @@ from bms.models import BookingGroup, BookingOrder, Vendor, Booking
 #         }
 #
 # }
-from bms.serializers import BookingGroupSerializer
+from bms.serializers.BookingGroupSerializer import BookingGroupSerializer
 from bms.serializers.BookingOrderSerializer import BookingOrderSerializer, VendorSerializer
 
 
@@ -24,14 +24,12 @@ from bms.serializers.BookingOrderSerializer import BookingOrderSerializer, Vendo
 # @schema(CustomAutoSchema())
 def view(request):
     if request.method == "POST":
-        a = Vendor.objects.all()
-        print(a[0].name)
-        serializerdata= VendorSerializer(data= a, many=True)
-        # print(serializerdata.is_valid())
-        # content = JSONRenderer().render(serializerdata.errors)
-        # print(content)
+        a = BookingGroup.objects.all()
+        serializerdata= BookingGroupSerializer(a, many=True)
+        content = JSONRenderer().render(serializerdata.data)
+        print(content)
         # return Response({"message": "Hello for today! See you tomorrow!"})
-        return Response(serializerdata, status=status.HTTP_200_OK)
+        return Response(serializerdata.data, status=status.HTTP_200_OK)
 
     return Response(status=status.HTTP_400_BAD_REQUEST)
 
