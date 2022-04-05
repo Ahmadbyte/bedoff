@@ -3,7 +3,7 @@ from rest_framework_json_api import serializers
 from hotel.models import Address
 
 
-class AddressSerializer(serializers.HyperlinkedModelSerializer):
+class AddressSerializer(serializers.Serializer):
     class Meta:
         model = Address
         fields = ('id')

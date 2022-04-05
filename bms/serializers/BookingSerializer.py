@@ -1,10 +1,11 @@
 from rest_framework_json_api import serializers
 
 from bms.models import Booking
+from bms.serializers import BookingOrderSerializer
+from hotel.serializers import HotelSerializer
 
 
-class BookingGroupSerializer(serializers.HyperlinkedModelSerializer):
+class BookingSerializer(serializers.Serializer):
     class Meta:
         model = Booking
         fields = ('id')
-    id = serializers.IntegerField()
