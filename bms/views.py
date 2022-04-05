@@ -25,11 +25,12 @@ from bms.serializers import BookingGroupSerializer
 def view(request):
     if request.method == "POST":
         a = BookingGroup.objects.filter(Status = 1)
-        print(a)
-        serializerdata= BookingGroupSerializer(data=a)
-        content = JSONRenderer().render(serializerdata.data)
-        print(content)
-        return Response(content, status=status.HTTP_200_OK)
+        print(a[0])
+        serializerdata= BookingGroupSerializer(a[0])
+        # content = JSONRenderer().render(serializerdata.data)
+        # print(content)
+        return Response({"message": "Hello for today! See you tomorrow!"})
+        # return Response(content, status=status.HTTP_200_OK)
 
     return Response(status=status.HTTP_400_BAD_REQUEST)
 

@@ -42,6 +42,6 @@ class Address(models.Model):
 class Hotel(models.Model):
     address = models.ForeignKey(Address,on_delete=models.CASCADE)
     def __str__(self):
-        return "Room No: "+str(self.id)
+        return "HotelId: "+str(self.id)
 
 # Create your models here.
