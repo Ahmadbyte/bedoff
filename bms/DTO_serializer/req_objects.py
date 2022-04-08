@@ -1,26 +1,29 @@
 from rest_framework import serializers
 
+class GuestSerializer(serializers.Serializer):
+    name = serializers.CharField(max_length=200)
+
 
 class BookingSerializer(serializers.Serializer):
-    def __init__(self , TyoeOfBooking, BookingType):
-        pass
+    guest = GuestSerializer()
 
 
 class BookingGroupSerializer(serializers.Serializer):
-    def __init__(self , TyoeOfBooking, BookingType):
-        pass
+    bookings = BookingSerializer(many = True)
+    checkInDate = serializers.DateTimeField()
+    checkoutDate = serializers.DateTimeField()
 
 
 
 class ResultSerializer(serializers.Serializer):
-    def __init__(self , TyoeOfBooking, BookingType):
-        pass
+    bookingGroupList = BookingGroupSerializer(many = True)
 
 
 class BookingFilterSerializer(serializers.Serializer):
-    def __init__(self , TyoeOfBooking, BookingType):
-        pass
-
+    statue = serializers.IntegerField()
+    checkInDate = serializers.DateTimeField()
+    checkoutDate = serializers.DateTimeField()
+    noOfDays = serializers.IntegerField()
 
 
 

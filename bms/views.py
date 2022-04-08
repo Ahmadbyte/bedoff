@@ -6,6 +6,7 @@ from rest_framework.decorators import action , api_view, schema
 from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
 # Create your views here.
+from bms.DTO_serializer.req_objects import BookingFilterSerializer
 from bms.models import BookingGroup, BookingOrder, Vendor, Booking, Guest
 
 # {
@@ -22,17 +23,21 @@ from bms.serializers.BookingSerializer import BookingSerializer, GuestSerializer
 
 
 @api_view(['GET','POST'])
-def booking_groups(request):
+def booking_groups(request , format='application/json'):
     if request.method == "POST":
         #add filter logic
-        a = BookingGroup.objects.all()
-        serializerdata= BookingGroupSerializer(a, many=True)
-        content = JSONRenderer().render(serializerdata.data)
-        print(content)
-        return Response(serializerdata.data, status=status.HTTP_200_OK)
+        filterSerializer = BookingFilterSerializer(data=request.data)
+        if filterSerializer.is_valid():
+            a = BookingGroup.objects.all(status = 1)
+            resultSerializerdata = BookingGroupSerializer(a, many=True)
+            content = JSONRenderer().render(resultSerializerdata.data)
+            print(content)
+            return Response(resultSerializerdata, status=status.HTTP_200_OK)
 
     return Response(status=status.HTTP_400_BAD_REQUEST)
 
+
+@api_view(['GET','POST'])
 def booking(request):
     if request.method == "POST":
         #add filter logic
@@ -45,6 +50,7 @@ def booking(request):
     return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
+@api_view(['GET','POST'])
 def guest(request):
     if request.method == "POST":
         #add filter logic
@@ -57,6 +63,7 @@ def guest(request):
     return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
+@api_view(['GET','POST'])
 def order(request):
     if request.method == "POST":
         #add filter logic

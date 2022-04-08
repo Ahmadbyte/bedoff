@@ -3,8 +3,12 @@ from rest_framework_json_api import serializers
 from bms.models import BookingGroup, BookingOrder
 from bms.serializers import BookingOrderSerializer
 from hotel.serializers import HotelSerializer
+from login.models import User
+
 
 class UserSerializer(serializers.Serializer):
+    class Meta:
+        model = User
     email = serializers.EmailField()
     username = serializers.CharField(max_length=100)
 
