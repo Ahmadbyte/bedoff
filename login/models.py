@@ -20,15 +20,15 @@ class HotelStaff(DetailMixin):
         ('RC', 'Receptionist'),
     )
 
-    role =  models.CharField(max_length=2, choices=StaffTyoe)
-    hotel= models.ForeignKey(Hotel,on_delete=models.DO_NOTHING)
+    role = models.CharField(max_length=2, choices=StaffTyoe)
+    hotel = models.ForeignKey(Hotel,on_delete=models.DO_NOTHING)
 
     status = models.IntegerField()
 
     def __str__(self):
         return "staff Id: "+str(self.id)
 
-class user(DetailMixin):
+class User(DetailMixin):
 
     def __str__(self):
         return "user Id: "+str(self.id)
