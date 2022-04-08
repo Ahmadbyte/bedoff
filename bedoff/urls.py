@@ -27,12 +27,12 @@ schema_view = get_swagger_view(title='Pastebin API')
 urlpatterns = [
     path('admin/', admin.site.urls),
     re_path(r'^$', schema_view),
-    re_path(r"^user(?P<id>.+)$", login.views.view),
-    re_path(r"^user$", login.views.view),
-    re_path(r"^guestsByIds$", login.views.view),
-    re_path(r"^OrderUpload$", bms.views.view),
-    re_path(r"^Hotel$", hotel.views.view),
-    re_path(r"^BookingsByIds$", bms.views.view ),
-    re_path(r"^Bookings$", bms.views.view),
-    re_path(r"^Booking$", bms.views.view)
+    re_path(r"^User(?P<id>.+)$", login.views.view),
+    re_path(r"^User$", login.views.view),
+    re_path(r"^Hotels/Hotel$", hotel.views.hotels),
+    re_path(r"^Hotels/$", hotel.views.hotels),
+    re_path(r"^Bookings/Booking$", bms.views.booking),
+    re_path(r"^Bookings$", bms.views.booking_groups),
+    re_path(r"^Bookings/Order$", bms.views.order),
+    re_path(r"^Booking/Guest", bms.views.guest),
 ]

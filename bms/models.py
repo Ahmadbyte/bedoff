@@ -55,7 +55,7 @@ class BookingGroup(TimeLineMixin):
     # def is_past_due(self):
     #     return date.today()>self.end_day
 
-class Visitor(DetailMixin):
+class Guest(DetailMixin):
     EmployeeTNLID = models.CharField(max_length=100 , default= "")
 
     def __str__(self):
@@ -64,7 +64,7 @@ class Visitor(DetailMixin):
 class Booking(TimeLineMixin):
     BookingGroupId = models.ForeignKey(BookingGroup, on_delete=models.CASCADE)
     # user_id=models.ForeignKey(Customer, on_delete=models.CASCADE)
-    Visitor= models.ForeignKey(Visitor, on_delete=models.CASCADE)
+    Visitor= models.ForeignKey(Guest, on_delete=models.CASCADE)
 
 
     def __str__(self):
@@ -72,5 +72,9 @@ class Booking(TimeLineMixin):
     # @property
     # def is_past_due(self):
     #     return date.today()>self.end_day
+
+class Voucher(models.Model):
+    BookingGroup = models.ForeignKey(BookingGroup, on_delete=models.CASCADE)
+    CreatedOn = models.DateTimeField(auto_now=True, auto_now_add=False)
 
 
