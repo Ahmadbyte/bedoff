@@ -16,16 +16,16 @@ class UserSerializer(serializers.Serializer):
 class BookingGroupSerializer(serializers.Serializer):
     class Meta:
         model = BookingGroup
-        fields = ('id','orderId','checkIn','Hotel','PreferredHotel')
+        fields = ('id','orderId','checkIn','Hotel','PreferredHotels')
 
     id = serializers.IntegerField()
-    orderId = BookingOrderSerializer.BookingOrderSerializer()
-    checkIn = serializers.DateTimeField()
-    checkOut = serializers.DateTimeField()
+    orderId = BookingOrderSerializer.BookingOrderSerializer(required=False)
+    checkIn = serializers.DateTimeField(required=False)
+    checkOut = serializers.DateTimeField(required=False)
     Hotel = HotelSerializer.HotelSerializer(required=False)
     PreferredHotels = serializers.CharField(max_length=50)
-    NumberOfRooms = serializers.IntegerField()
+    NumberOfRooms = serializers.IntegerField(required=False)
     SuggestedHotelList = serializers.CharField(max_length=100)
-    BookingType = serializers.IntegerField()
-    TypeOfBookings = serializers.IntegerField()
+    BookingType = serializers.IntegerField(required=False)
+    TypeOfBookings = serializers.IntegerField(required=False)
     Status = serializers.IntegerField()

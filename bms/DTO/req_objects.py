@@ -1,14 +1,14 @@
 
 
-class Guest:
+class GuestRes:
     def __init__(self , name):
         selfname = name
 
-class Booking:
+class BookingRes:
     def __init__(self , guest):
         self.guest = guest
 
-class BookingGroup:
+class BookingGroupRes:
     def __init__(self , bookings , checkInDate , checkOutDate):
         self.bookings = bookings
         self.checkInDate = checkInDate
@@ -21,7 +21,7 @@ class Result:
 
 class BookingGroupFilter:
     def __init__(self, status , checkInDate , checkOutDate , noOfDays):
-        self.statue = status
+        self.status = status
         self.checkInDate = checkInDate
         self.checkoutDate = checkOutDate
         self.noOfDays = noOfDays

@@ -30,7 +30,7 @@ urlpatterns = [
     re_path(r"^User(?P<id>.+)$", login.views.view),
     re_path(r"^User$", login.views.view),
     re_path(r"^Hotels/Hotel$", hotel.views.hotels),
-    re_path(r"^Hotels/$", hotel.views.hotels),
+    re_path(r"^Hotels$", hotel.views.hotels),
     re_path(r"^Bookings/Booking$", bms.views.booking),
     re_path(r"^Bookings$", bms.views.booking_groups),
     re_path(r"^Bookings/Order$", bms.views.order),

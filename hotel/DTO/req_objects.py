@@ -9,8 +9,8 @@ class Address:
 
 
 class HotelFilter:
-    def __init__(self):
-        pass
+    def __init__(self, id):
+        self.id = id
 
 
 

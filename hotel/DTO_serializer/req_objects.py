@@ -12,8 +12,7 @@ class AddressSerializer(serializers.Serializer):
 
 
 class HotelFilterSerializer(serializers.Serializer):
-    def __init__(self):
-        pass
+    id = serializers.IntegerField(required=False)
 
 
 

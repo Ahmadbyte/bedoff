@@ -20,10 +20,10 @@ class ResultSerializer(serializers.Serializer):
 
 
 class BookingFilterSerializer(serializers.Serializer):
-    statue = serializers.IntegerField()
-    checkInDate = serializers.DateTimeField()
-    checkoutDate = serializers.DateTimeField()
-    noOfDays = serializers.IntegerField()
+    status = serializers.IntegerField()
+    checkInDate = serializers.DateTimeField(required=False)
+    checkoutDate = serializers.DateTimeField(required=False)
+    noOfDays = serializers.IntegerField(required=False)
 
 
 
