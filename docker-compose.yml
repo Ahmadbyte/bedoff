@@ -8,7 +8,7 @@ services:
     # MySQL service
     mysqldb:
         container_name: bedoff-mysql
-        image: 'mysql:5.7'
+        image: 'mysql:8.0.28'
         hostname: bedoff-mysql
         ports:
             - '3310:3306'

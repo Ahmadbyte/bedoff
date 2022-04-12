@@ -4,13 +4,13 @@
 
 - A number of times the same code running on a local/test environment might fail on production due to the difference in the environment.
 
-- Using containerization we get rid of the possibilities of such occurrences, by creating a production like environment on all the dev/testing setups. 
+- Using containerization we get rid of the possibilities of such occurrences, by creating a production like environment on all the dev/testing setups.
 
 - Setting up the local dev/test environment is now just a single command away.
 
 ### How does the setup look like?
 
-The various services needed for running the backend services would run in separate containers once 
+The various services needed for running the backend services would run in separate containers once
 the setup is complete using this documentation.
 
 You should expect to see 2 containers up and running - MySQL and the backend application.
@@ -39,7 +39,7 @@ If you don't have the compose file in the directory, you'll see:
 
 ```
 docker-compose up -d
-ERROR: 
+ERROR:
         Can't find a suitable configuration file in this directory or any
         parent. Are you in the right directory?
 
@@ -50,7 +50,7 @@ So, make sure you're running this in your main project path.
 
 ### Okay, what's next?
 
-When you've run the above command sit back and let compose do it's job. 
+When you've run the above command sit back and let compose do it's job.
 
 It would take around 10 mins for the entire setup to be complete.
 
@@ -70,23 +70,23 @@ If this fails, retry:
 ```
 docker-compose stop && docker-compose rm -f && docker-compose pull && docker-compose build --no-cache && docker-compose up -d --force-recreate --remove-orphans
 ```
-You could also navigate to `localhost:9000` if you've installed portainer as mentioned above 
+You could also navigate to `localhost:9000` if you've installed portainer as mentioned above
 and see all your containers up and running.
 
 #### Brief insights into what's happening under the hood:
 
 So, when you issue a `docker-compose up -d` as mentioned above, the tool uses the compose file and
-installs all the dependencies and gets them up and running. The containers also get registered to 
+installs all the dependencies and gets them up and running. The containers also get registered to
 a local network which they use to identify and communicate with hosts. For example: Our backend
-wanting to talk to MySQL. 
+wanting to talk to MySQL.
 
-If you take a look at the `docker-compose.yml` file, you'll find: 
+If you take a look at the `docker-compose.yml` file, you'll find:
 
 ```
 links:
     - mysqldb
 ```
-These are the hosts on the local network that the web services needs to talk to which we define 
+These are the hosts on the local network that the web services needs to talk to which we define
 in our compose file as : `hostname: mysqldb` etc.
 
 The `-d` flag tells compose to run it in detached mode(i.e. in the background).
@@ -102,20 +102,20 @@ More helpful stuff about the docker network could be found here: https://stackov
 
 Well, there's something called volume and port binding when using containers.
 
-So, if you take a look at the `docker-compose.yml`, it says: 
+So, if you take a look at the `docker-compose.yml`, it says:
 
 ```
 volumes:
     - '.:/bedoff'
 ```
 
-which means that we tell docker to bind my current directory referenced by `.` to `/bedoff` inside 
+which means that we tell docker to bind my current directory referenced by `.` to `/bedoff` inside
 container. So, any code change in the current directory would be directly reflected inside the container
 
 We also have:
 ```
 ports:
-    - '8005:8000'   
+    - '8005:8000'
 ```
 which tells docker to bind the host machines port number 8001 to 8000 on the above container.
 
@@ -133,7 +133,7 @@ That's pretty much about it!
 5. View all running containers: docker ps
 6. View all containers: docker ps -a
 7. ssh into a running container: docker exec -it <container_id> /bin/bash
-``` 
+```
 
 Other useful commands can be found here: https://dzone.com/articles/top-docker-commands-itsyndicate
 

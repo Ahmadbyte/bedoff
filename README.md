@@ -1,21 +1,20 @@
-# bedoff.Api
-A RESTful service serving the entire backend
+## Bedoff Backend Service
 
-#### Important Git information
+The purpose of this service is to serve all the Bedoff backend needs.
 
-Before you start committing code, please install our pre-commit hook for Git, which will check for code quality issues
-(as per PEP8 conventions) and imports sorted incorrectly.
+### Setting up
 
-The file `pre-commit-hook.sh` is the hook script. To install this in your local repository, you need to symlink the script
-in your ``.git/hooks`` folder.
+#### Pre-commit
 
-The following commands will create the link.
+Steps to configure:
 
 ```
-$ sudo chmod +x pre-commit-hook.sh
-$ cd .git/hooks/
-$ ln -s ../../pre-commit-hook.sh pre-commit
-$ cd ../..
+1. pip install pre-commit
+2. pre-commit install
 ```
 
-For kickstarting the project, follow DOCKER-README.md
+To update the hook, issue:
+
+```
+1. pre-commit autoupdate
+```

@@ -1,5 +1,5 @@
 # Python version to be used within the image
-FROM python:latest
+FROM python:3.8
 
 # CentOS version
 FROM centos:latest

@@ -14,25 +14,24 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-from django.urls import include, re_path
+from django.urls import path, re_path
 from rest_framework_swagger.views import get_swagger_view
 
-import bms.views
-import hotel.views
-import login.views
+import accounts.views
+import bookings.views
+import hotels.views
 
-schema_view = get_swagger_view(title='Pastebin API')
+schema_view = get_swagger_view(title="Pastebin API")
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    re_path(r'^$', schema_view),
-    re_path(r"^User(?P<id>.+)$", login.views.view),
-    re_path(r"^User$", login.views.view),
-    re_path(r"^Hotels/Hotel$", hotel.views.hotels),
-    re_path(r"^Hotels$", hotel.views.hotels),
-    re_path(r"^Bookings/Booking$", bms.views.booking),
-    re_path(r"^Bookings$", bms.views.booking_groups),
-    re_path(r"^Bookings/Order$", bms.views.order),
-    re_path(r"^Booking/Guest", bms.views.guest),
+    path("admin/", admin.site.urls),
+    re_path(r"^$", schema_view),
+    re_path(r"^User(?P<id>.+)$", accounts.views.view),
+    re_path(r"^User$", accounts.views.view),
+    re_path(r"^Hotels/Hotel$", hotels.views.hotels),
+    re_path(r"^Hotels$", hotels.views.hotels),
+    re_path(r"^Bookings/Booking$", bookings.views.booking),
+    re_path(r"^Bookings$", bookings.views.booking_groups),
+    re_path(r"^Bookings/Order$", bookings.views.order),
+    re_path(r"^Booking/Guest", bookings.views.guest),
 ]
