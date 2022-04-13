@@ -8,10 +8,10 @@ services:
     # MySQL service
     mysqldb:
         container_name: bedoff-mysql
-        image: 'mysql:8.0.28'
+        image: 'mysql:8'
         hostname: bedoff-mysql
         ports:
-            - '3310:3306'
+            - '3307:3306'
         # Environment used to create the relevant DB and user
         environment:
             MYSQL_DATABASE: bedoff_db
@@ -20,6 +20,8 @@ services:
             MYSQL_ROOT_PASSWORD: bedoff
         # Specifying a restart policy for the containerized service
         restart: always
+        volumes:
+            - mysql_data:/var/lib/mysql
 
     # bedoff-backend service(web application service)
     bedoff-backend:
@@ -31,9 +33,12 @@ services:
         volumes:
             - '.:/bedoff'
         ports:
-            - '8005:8000'
+            - '8000:8000'
         # This is for the debugger on the environment
         stdin_open: true
         tty: true
         # Specifying a restart policy for the containerized service
         restart: always
+
+volumes:
+  mysql_data:

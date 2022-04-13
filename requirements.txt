@@ -6,3 +6,5 @@ requests==2.27.1
 simplejson==3.17.6
 sqlparse==0.3.1
 pre-commit
+mysqlclient==2.1.0
+django-extensions==3.1.5

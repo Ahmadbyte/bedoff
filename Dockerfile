@@ -7,7 +7,8 @@ FROM ubuntu:18.04
 RUN apt-get update
 
 # Installing pip for managing Python packages
-RUN apt-get install -y python-pip && apt-get install -y python3-pip
+RUN apt-get install -y python3-pip
+RUN apt-get install -y libmysqlclient-dev
 
 # Installing relevant dependencies
 RUN apt-get install -y python3.8-dev
@@ -17,4 +18,4 @@ COPY . /bedoff/
 WORKDIR /bedoff/
 
 # Installing application package dependencies
-RUN pip install -r requirements.txt
+RUN pip3 install -r requirements.txt
