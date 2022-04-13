@@ -1,7 +1,5 @@
 from django.db import models
 
-from hotels.models import Hotel
-
 #
 # class TimeLineMixin(models.Model):
 #     class Meta:
@@ -33,7 +31,6 @@ class Booking(models.Model):
     TypeOfBookings = ((1, "HNS"), (2, "Relocation"))
     checkIn = models.DateTimeField(auto_now=True, auto_now_add=False)
     checkOut = models.DateTimeField(auto_now=True, auto_now_add=False)
-    Hotel = models.ForeignKey(Hotel, on_delete=models.DO_NOTHING)
     PreferredHotels = models.CharField(max_length=50, default="")
     NumberOfRooms = models.IntegerField()
     SuggestedHotelList = models.CharField(max_length=100)
