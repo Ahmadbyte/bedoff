@@ -20,6 +20,14 @@ from django.db import models
 #     source = models.CharField(max_length=50)
 
 
+class Guest(models.Model):
+    employee_TNLID = models.CharField(max_length=100, default="")
+    name = models.CharField(max_length=100, default="")
+
+    def __str__(self):
+        return "Guest Id: " + str(self.id)
+
+
 class Booking(models.Model):
     Status = (
         (1, "In Progress"),
@@ -29,26 +37,22 @@ class Booking(models.Model):
     )
     BookingType = ((1, "New Booking"), (2, "Extension"))
     TypeOfBookings = ((1, "HNS"), (2, "Relocation"))
-    checkIn = models.DateTimeField(auto_now=True, auto_now_add=False)
-    checkOut = models.DateTimeField(auto_now=True, auto_now_add=False)
-    PreferredHotels = models.CharField(max_length=50, default="")
-    NumberOfRooms = models.IntegerField()
-    SuggestedHotelList = models.CharField(max_length=100)
-    BookingType = models.IntegerField(choices=BookingType)
-    TypeOfBookings = models.IntegerField(choices=TypeOfBookings)
-    Status = models.IntegerField(choices=Status, default=1)
+
+    check_in = models.DateTimeField(auto_now=True, auto_now_add=False, null=True)
+    check_out = models.DateTimeField(auto_now=True, auto_now_add=False, null=True)
+    preferred_hotels = models.CharField(max_length=50, default="")
+    booking_type = models.IntegerField(choices=BookingType)
+    type_of_booking = models.IntegerField(choices=TypeOfBookings)
+    status = models.IntegerField(choices=Status, default=1)
+    room_count_single_occupancy = models.IntegerField()
+    room_count_double_occupancy = models.IntegerField()
+    guests = models.ForeignKey(Guest, on_delete=models.DO_NOTHING, null=True)
+    guest_count = models.IntegerField()
 
     def __str__(self):
         return "Booking Group ID: " + str(self.id)
 
 
-#
-# class Guest(DetailMixin):
-#     EmployeeTNLID = models.CharField(max_length=100, default="")
-#
-#     def __str__(self):
-#         return "Visitor Id: " + str(self.id)
-#
 #
 # class Booking(TimeLineMixin):
 #     BookingGroupId = models.ForeignKey(BookingGroup, on_delete=models.CASCADE)

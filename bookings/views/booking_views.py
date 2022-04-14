@@ -10,3 +10,12 @@ class BookingModelViewSet(BaseModelViewSet):
 
     queryset = booking_models.Booking.objects.all()
     serializer_class = booking_serializers.BookingModelSerializer
+
+
+class BookingListModelViewSet(BaseModelViewSet):
+    """
+    BookingModelViewSet
+    """
+
+    queryset = booking_models.Booking.objects.all()
+    serializer_class = booking_serializers.BookingsModelSerializer

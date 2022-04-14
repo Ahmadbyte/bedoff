@@ -1,6 +1,6 @@
 from django.db import models
 
-from hotels.models import Hotel
+# import hotels.models as hotels_models
 
 
 class DetailMixin(models.Model):
@@ -14,15 +14,15 @@ class DetailMixin(models.Model):
 
 
 class HotelStaff(DetailMixin):
-    StaffTyoe = (
+    StaffType = (
         ("RM", "Regional Manager"),
         ("OW", "Owner"),
         ("MN", "Manager"),
         ("RC", "Receptionist"),
     )
 
-    role = models.CharField(max_length=2, choices=StaffTyoe)
-    hotel = models.ForeignKey(Hotel, on_delete=models.DO_NOTHING)
+    role = models.CharField(max_length=2, choices=StaffType)
+    # hotel = models.ForeignKey(Hotel, on_delete=models.DO_NOTHING)
 
     status = models.IntegerField()
 
@@ -44,7 +44,7 @@ class BankAccount(models.Model):
 
 
 class HotelAccount(models.Model):
-    hotel = models.ForeignKey(Hotel, on_delete=models.CASCADE)
+    # hotel = models.ForeignKey(hotels_models.Hotel, on_delete=models.CASCADE)
     account = models.ForeignKey(BankAccount, on_delete=models.CASCADE)
 
     def __str__(self):
