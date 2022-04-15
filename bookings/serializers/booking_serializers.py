@@ -21,14 +21,17 @@ class BookingModelSerializer(BaseModelSerializer):
         model = booking_models.Booking
         fields = "__all__"
 
-    guests = GuestModelSerializer(many=True)
+    guests = GuestModelSerializer(many=False)
 
     def create(self, validated_data):
-        guests = validated_data.pop("guests")
-
-        for guest in guests:
-            booking_models.Guest.objects.create(**guest)
-        return booking_models.Booking.objects.create(**validated_data)
+        # guests = validated_data.pop("guests")
+        #
+        # booking_models.Guest.objects.create(**guests)
+        # for guest in guests:
+        #     booking_models.Guest.objects.create(**guest)
+        guests_data = validated_data.pop("guests")
+        guests_instance = booking_models.Guest.objects.create(**guests_data)
+        return booking_models.Booking.objects.create(guests=guests_instance, **validated_data)
 
 
 class BookingsModelSerializer(BaseModelSerializer):

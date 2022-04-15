@@ -38,6 +38,6 @@ class HotelModelSerializer(BaseModelSerializer):
     def create(self, validated_data):
         address_data = validated_data.pop("address")
         address_instance = hotel_models.Address.objects.create(**address_data)
-        validated_data.pop("manager")
-        # manager_instance = account_models.HotelStaff.objects.create(**manager_data)
-        return hotel_models.Hotel.objects.create(address=address_instance, **validated_data)
+        manager_data = validated_data.pop("manager")
+        manager_instance = account_models.HotelStaff.objects.create(**manager_data)
+        return hotel_models.Hotel.objects.create(manager=manager_instance, address=address_instance, **validated_data)
