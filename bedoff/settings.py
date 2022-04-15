@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "hotels",
     "accounts",
     "django_extensions",
+    "filters"
 ]
 
 MIDDLEWARE = [
