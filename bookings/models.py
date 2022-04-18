@@ -23,6 +23,7 @@ from django.db import models
 class Guest(models.Model):
     employee_TNLID = models.CharField(max_length=100, default="")
     name = models.CharField(max_length=100, default="")
+    booking_id = models.IntegerField()
 
     def __str__(self):
         return "Guest Id: " + str(self.id)
@@ -46,7 +47,7 @@ class Booking(models.Model):
     status = models.IntegerField(choices=Status, default=1)
     room_count_single_occupancy = models.IntegerField()
     room_count_double_occupancy = models.IntegerField()
-    guests = models.ForeignKey(Guest, on_delete=models.DO_NOTHING, null=True)
+    guests = models.ManyToManyField(Guest, null=True)
     guest_count = models.IntegerField()
 
     def __str__(self):
