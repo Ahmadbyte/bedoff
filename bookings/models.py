@@ -1,13 +1,6 @@
 from django.db import models
 
-#
-# class TimeLineMixin(models.Model):
-#     class Meta:
-#         abstract = True
-#
-#     createdOn = models.DateTimeField(auto_now=True, auto_now_add=False)
-#     lastUpdatedOn = models.DateTimeField(auto_now=True, auto_now_add=False)
-#     active = models.CharField(max_length=4)
+
 #
 #
 # class Vendor(models.Model):
@@ -18,9 +11,10 @@ from django.db import models
 #     vendor = models.ForeignKey(Vendor, on_delete=models.CASCADE)
 #     ordered_on = models.DateTimeField(auto_now=True, auto_now_add=False)
 #     source = models.CharField(max_length=50)
+from base.models import BaseModelMixin
 
 
-class Guest(models.Model):
+class Guest(BaseModelMixin):
     employee_TNLID = models.CharField(max_length=100, default="")
     name = models.CharField(max_length=100, default="")
     booking_id = models.IntegerField()
@@ -29,7 +23,7 @@ class Guest(models.Model):
         return "Guest Id: " + str(self.id)
 
 
-class Booking(models.Model):
+class Booking(BaseModelMixin):
     Status = (
         (1, "In Progress"),
         (2, "Completed"),

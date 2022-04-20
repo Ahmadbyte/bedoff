@@ -31,11 +31,11 @@ class BookingModelSerializer(BaseModelSerializer):
     def get_guest_count(self, obj):
         return 123
 
-    def get_guests(self, obj):
-        queryset = booking_models.Guest.objects.all()
-
-        # return queryset.filter(**db_filters).exclude(**db_excludes)
-        return queryset.filter(booking_id=1)
+    # def get_guests(self, obj):
+    #     queryset = booking_models.Guest.objects.all()
+    #
+    #     # return queryset.filter(**db_filters).exclude(**db_excludes)
+    #     return queryset.filter(booking_id=1)
         # return [{"hey": "sad"}]
 
     # def get_fields(self):
