@@ -39,9 +39,10 @@ class BookingModelViewSet(FiltersMixin, BaseModelViewSet):
 
         queryset = booking_models.Booking.objects.all()
         status = self.request.query_params.get('status')
-
-        # return queryset.filter(**db_filters).exclude(**db_excludes)
-        return queryset.filter(status=status)
+        if status:
+            # return queryset.filter(**db_filters).exclude(**db_excludes)
+            return queryset.filter(status=status)
+        return queryset
 
 
 

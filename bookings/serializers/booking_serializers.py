@@ -1,4 +1,6 @@
+from django.http import Http404
 from rest_framework import serializers
+from rest_framework.response import Response
 
 from base.serializers import BaseModelSerializer
 from bookings import models as booking_models
@@ -11,9 +13,26 @@ class GuestModelSerializer(BaseModelSerializer):
 
     class Meta:
         model = booking_models.Guest
-        fields = ['id','name', 'employee_TNLID','booking_id']
+        fields = ['id','name', 'employee_TNLID']
 
-    booking_id = serializers.IntegerField(required=False)
+    # booking_id = serializers.IntegerField(required=False)
+    def get_object(self, pk):
+        try:
+            return booking_models.Guest.objects.get(pk=pk)
+        except booking_models.Guest.DoesNotExist:
+            raise Http404
+
+    def update(self, request, *args, **kwargs):
+
+        instance = self.get_object(request.id)
+        serializer = GuestModelSerializer(
+            instance=instance,
+            data=args[0]
+        )
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
+
 
 
 class BookingModelSerializer(BaseModelSerializer):
@@ -23,7 +42,8 @@ class BookingModelSerializer(BaseModelSerializer):
 
     class Meta:
         model = booking_models.Booking
-        fields = ['preferred_hotels', 'booking_type', 'type_of_booking', 'status', 'room_count_single_occupancy', \
+        depth = 1
+        fields = ['id','preferred_hotels', 'booking_type', 'type_of_booking', 'status', 'room_count_single_occupancy', \
                   'room_count_double_occupancy', 'guest_count', 'guests']
 
     guests = GuestModelSerializer(many=True)
@@ -57,17 +77,25 @@ class BookingModelSerializer(BaseModelSerializer):
         booking_instance.guests.set(guest_list)
         return booking_instance
 
-    def update(self, instance, validated_data):
-        """
-        Update and return an existing `Snippet` instance, given the validated data.
-        """
-        # instance.title = validated_data.get('title', instance.title)
-        # instance.code = validated_data.get('code', instance.code)
-        # instance.linenos = validated_data.get('linenos', instance.linenos)
-        # instance.language = validated_data.get('language', instance.language)
-        # instance.style = validated_data.get('style', instance.style)
-        # instance.save()
-        return instance
+    def get_object(self, pk):
+        try:
+            return booking_models.Booking.objects.get(pk=pk)
+        except booking_models.Booking.DoesNotExist:
+            raise Http404
+
+    def update(self, request, *args, **kwargs):
+
+        instance = self.get_object(request.id)
+        # del args[0]['guests']
+        # guests = validated_data.pop("guests")
+        # import pdb; pdb.set_trace()
+        serializer = BookingModelSerializer(
+            instance=instance,
+            data=args[0]
+        )
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
 
 
 class BookingsModelSerializer(BaseModelSerializer):
