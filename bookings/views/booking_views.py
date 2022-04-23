@@ -1,4 +1,4 @@
-from filters.mixins import (FiltersMixin,)
+from filters.mixins import FiltersMixin
 from rest_framework import filters
 
 from base.views import BaseModelViewSet
@@ -18,11 +18,10 @@ class BookingModelViewSet(FiltersMixin, BaseModelViewSet):
 
     filter_validation_schema = bookings_query_schema
 
-
     def get_queryset(self):
         """
-               Optionally restricts the queryset by filtering against
-               query parameters in the URL.
+        Optionally restricts the queryset by filtering against
+        query parameters in the URL.
         """
 
         query_params = self.request.query_params
@@ -33,18 +32,15 @@ class BookingModelViewSet(FiltersMixin, BaseModelViewSet):
         queryset_filters = self.get_db_filters(url_params, query_params)
 
         # This dict will hold filter kwargs to pass in to Django ORM calls.
-        db_filters = queryset_filters['db_filters']
+        queryset_filters["db_filters"]
 
-        db_excludes = queryset_filters['db_excludes']
+        queryset_filters["db_excludes"]
 
         queryset = booking_models.Booking.objects.all()
-        status = self.request.query_params.get('status')
+        status = self.request.query_params.get("status")
         if status:
-            # return queryset.filter(**db_filters).exclude(**db_excludes)
-            return queryset.filter(status=status)
-        return queryset
-
-
+            queryset = queryset.filter(status=status)
+        return queryset.order_by("-created_at")
 
 
 class BookingListModelViewSet(BaseModelViewSet):
