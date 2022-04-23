@@ -60,16 +60,10 @@ MIDDLEWARE = [
 
 # CORS Settings
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
-    "http://3.111.221.235:8000",
-    "http://3.111.221.235",
+    "*",
 ]
 
-CORS_ORIGIN_WHITELIST = (
-    "http://localhost:3000",
-    "http://3.111.221.235:8000",
-    "http://3.111.221.235",
-)
+CORS_ORIGIN_WHITELIST = ("*",)
 
 CORS_ALLOW_METHODS = [
     "DELETE",
