@@ -5,6 +5,9 @@ from rest_framework.response import Response
 from base.serializers import BaseModelSerializer
 from bookings import models as booking_models
 
+from hotels import models as hotel_models
+from hotels.serializers.hotel_serializers import HotelModelSerializer
+
 
 class GuestModelSerializer(BaseModelSerializer):
     """
@@ -13,7 +16,7 @@ class GuestModelSerializer(BaseModelSerializer):
 
     class Meta:
         model = booking_models.Guest
-        fields = ['id','name', 'employee_TNLID']
+        fields = ['id', 'name', 'employee_TNLID']
 
     # booking_id = serializers.IntegerField(required=False)
     def get_object(self, pk):
@@ -34,7 +37,6 @@ class GuestModelSerializer(BaseModelSerializer):
         return Response(serializer.data)
 
 
-
 class BookingModelSerializer(BaseModelSerializer):
     """
     BookingModelSerializer
@@ -43,29 +45,32 @@ class BookingModelSerializer(BaseModelSerializer):
     class Meta:
         model = booking_models.Booking
         depth = 1
-        fields = ['id','preferred_hotels', 'booking_type', 'type_of_booking', 'status', 'room_count_single_occupancy', \
-                  'room_count_double_occupancy', 'guest_count', 'guests']
+        fields = ['id', 'preferred_hotels', 'booking_type', 'type_of_booking', 'status', 'room_count_single_occupancy', \
+                  'room_count_double_occupancy', 'guest_count', 'guests', "check_out", "check_in", "booked_hotel"]
 
     guests = GuestModelSerializer(many=True)
-
-    def get_guest_count(self, obj):
-        return 123
+    booked_hotel = serializers.IntegerField()
 
     # def get_guests(self, obj):
     #     queryset = booking_models.Guest.objects.all()
     #
     #     # return queryset.filter(**db_filters).exclude(**db_excludes)
     #     return queryset.filter(booking_id=1)
-        # return [{"hey": "sad"}]
+    # return [{"hey": "sad"}]
 
     # def get_fields(self):
     #     return {}
 
     def create(self, validated_data):
         guests = validated_data.pop("guests")
+        booked_hotel = validated_data.pop("booked_hotel")
+        # import pdb;pdb.set_trace()
+        hotel_instance = hotel_models.Hotel.objects.get(pk=booked_hotel)
         #
         # booking_models.Guest.objects.create(**guests)
         # booking_group_id = validated_data.pop("booking_order_id")
+
+        # booking_instance = booking_models.Booking.objects.create(booked_hotel=hotel_instance,**validated_data) --error-nafis
         booking_instance = booking_models.Booking.objects.create(**validated_data)
         guest_list = []
         for guest in guests:
@@ -76,6 +81,7 @@ class BookingModelSerializer(BaseModelSerializer):
         # return booking_models.Booking.objects.create(guests=guests_instance, **validated_data)
         booking_instance.guests.set(guest_list)
         return booking_instance
+
 
     def get_object(self, pk):
         try:
@@ -95,6 +101,7 @@ class BookingModelSerializer(BaseModelSerializer):
         )
         serializer.is_valid(raise_exception=True)
         serializer.save()
+        # --error - nafis
         return Response(serializer.data)
 
 

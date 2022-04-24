@@ -12,6 +12,7 @@ from django.db import models
 #     ordered_on = models.DateTimeField(auto_now=True, auto_now_add=False)
 #     source = models.CharField(max_length=50)
 from base.models import BaseModelMixin
+from hotels.models import Hotel
 
 
 class Guest(BaseModelMixin):
@@ -43,6 +44,7 @@ class Booking(BaseModelMixin):
     room_count_double_occupancy = models.IntegerField()
     guests = models.ManyToManyField(Guest, null=True)
     guest_count = models.IntegerField()
+    booked_hotel = models.ForeignKey(Hotel, on_delete=models.DO_NOTHING, null=True)
 
     def __str__(self):
         return "Booking Group ID: " + str(self.id)
