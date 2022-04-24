@@ -49,7 +49,7 @@ class BookingModelSerializer(BaseModelSerializer):
                   'room_count_double_occupancy', 'guest_count', 'guests', "check_out", "check_in", "booked_hotel"]
 
     guests = GuestModelSerializer(many=True)
-    booked_hotel = serializers.IntegerField()
+    booked_hotel = serializers.CharField()
 
     # def get_guests(self, obj):
     #     queryset = booking_models.Guest.objects.all()
@@ -70,8 +70,8 @@ class BookingModelSerializer(BaseModelSerializer):
         # booking_models.Guest.objects.create(**guests)
         # booking_group_id = validated_data.pop("booking_order_id")
 
-        # booking_instance = booking_models.Booking.objects.create(booked_hotel=hotel_instance,**validated_data) --error-nafis
-        booking_instance = booking_models.Booking.objects.create(**validated_data)
+        booking_instance = booking_models.Booking.objects.create(booked_hotel=hotel_instance, **validated_data)
+        # booking_instance = booking_models.Booking.objects.create(**validated_data)
         guest_list = []
         for guest in guests:
             guest_instance = booking_models.Guest.objects.create(booking_id=booking_instance.id, **guest)
