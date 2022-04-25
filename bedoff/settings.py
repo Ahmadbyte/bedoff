@@ -62,6 +62,7 @@ MIDDLEWARE = [
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "https://*.bedoff.com",
+    "https://ops.bedoff.com",
 ]
 
 CORS_ALLOW_METHODS = [
