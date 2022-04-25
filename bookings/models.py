@@ -1,23 +1,13 @@
 from django.db import models
 
-
-#
-#
-# class Vendor(models.Model):
-#     name = models.CharField(max_length=50)
-#
-#
-# class BookingOrder(TimeLineMixin):
-#     vendor = models.ForeignKey(Vendor, on_delete=models.CASCADE)
-#     ordered_on = models.DateTimeField(auto_now=True, auto_now_add=False)
-#     source = models.CharField(max_length=50)
 from base.models import BaseModelMixin
 from hotels.models import Hotel
 
 
 class Guest(BaseModelMixin):
     employee_TNLID = models.CharField(max_length=100, default="")
-    name = models.CharField(max_length=100, default="")
+    first_name = models.CharField(max_length=100, default="")
+    last_name = models.CharField(max_length=100, default="")
     booking_id = models.IntegerField()
 
     def __str__(self):
@@ -25,40 +15,46 @@ class Guest(BaseModelMixin):
 
 
 class Booking(BaseModelMixin):
-    Status = (
-        (1, "In Progress"),
-        (2, "Completed"),
-        (3, "Closed"),
-        (4, "Cancelled"),
+
+    IN_PROGRESS = 1
+    COMPLETED = 2
+    CLOSED = 3
+    CANCELLED = 4
+    BOOKING_STATUS_CHOICES = (
+        (IN_PROGRESS, "In Progress"),
+        (COMPLETED, "Completed"),
+        (CLOSED, "Closed"),
+        (CANCELLED, "Cancelled"),
     )
-    BookingType = ((1, "New Booking"), (2, "Extension"))
-    TypeOfBookings = ((1, "HNS"), (2, "Relocation"))
+
+    NEW = 1
+    EXTENDED = 2
+    BOOKING_TYPE_CHOICES = (
+        (NEW, "New Booking"),
+        (EXTENDED, "Extension"),
+    )
+
+    HNS = 1
+    RELOCATION = 2
+    BOOKING_STAY_TYPE_CHOICES = (
+        (1, "HNS"),
+        (2, "Relocation"),
+    )
 
     check_in = models.DateTimeField(auto_now=True, auto_now_add=False, null=True)
     check_out = models.DateTimeField(auto_now=True, auto_now_add=False, null=True)
     preferred_hotels = models.CharField(max_length=50, default="")
-    booking_type = models.IntegerField(choices=BookingType)
-    type_of_booking = models.IntegerField(choices=TypeOfBookings)
-    status = models.IntegerField(choices=Status, default=1)
-    room_count_single_occupancy = models.IntegerField()
-    room_count_double_occupancy = models.IntegerField()
+    booking_type = models.IntegerField(choices=BOOKING_TYPE_CHOICES, default=NEW)
+    stay_type = models.IntegerField(choices=BOOKING_STAY_TYPE_CHOICES)
+    booking_status = models.IntegerField(choices=BOOKING_STATUS_CHOICES, default=IN_PROGRESS)
+    single_occupancy_room_count = models.IntegerField(null=True)
+    double_occupancy_room_type = models.IntegerField(null=True)
     guests = models.ManyToManyField(Guest, null=True)
-    guest_count = models.IntegerField()
     booked_hotel = models.ForeignKey(Hotel, on_delete=models.DO_NOTHING, null=True)
+
+    @property
+    def guest_count(self):
+        return len(self.guests.all())
 
     def __str__(self):
         return "Booking Group ID: " + str(self.id)
-
-
-#
-# class Booking(TimeLineMixin):
-#     BookingGroupId = models.ForeignKey(BookingGroup, on_delete=models.CASCADE)
-#     Visitor = models.ForeignKey(Guest, on_delete=models.CASCADE)
-#
-#     def __str__(self):
-#         return "Booking ID: " + str(self.id)
-#
-#
-# class Voucher(models.Model):
-#     BookingGroup = models.ForeignKey(BookingGroup, on_delete=models.CASCADE)
-#     CreatedOn = models.DateTimeField(auto_now=True, auto_now_add=False)

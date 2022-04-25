@@ -6,76 +6,76 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('accounts', '0001_initial'),
+        ("accounts", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='bankaccount',
-            name='account_number',
+            model_name="bankaccount",
+            name="account_number",
             field=models.CharField(max_length=100, null=True),
         ),
         migrations.AddField(
-            model_name='bankaccount',
-            name='account_type',
+            model_name="bankaccount",
+            name="account_type",
             field=models.IntegerField(null=True),
         ),
         migrations.AddField(
-            model_name='bankaccount',
-            name='address',
+            model_name="bankaccount",
+            name="address",
             field=models.CharField(max_length=100, null=True),
         ),
         migrations.AlterField(
-            model_name='bankaccount',
-            name='IFSC',
+            model_name="bankaccount",
+            name="IFSC",
             field=models.CharField(max_length=50, null=True),
         ),
         migrations.AlterField(
-            model_name='bankaccount',
-            name='name',
+            model_name="bankaccount",
+            name="name",
             field=models.CharField(max_length=5, null=True),
         ),
         migrations.AlterField(
-            model_name='hotelstaff',
-            name='active',
+            model_name="hotelstaff",
+            name="active",
             field=models.BooleanField(default=True),
         ),
         migrations.AlterField(
-            model_name='hotelstaff',
-            name='mail',
+            model_name="hotelstaff",
+            name="mail",
             field=models.CharField(max_length=50, null=True),
         ),
         migrations.AlterField(
-            model_name='hotelstaff',
-            name='name',
+            model_name="hotelstaff",
+            name="name",
             field=models.CharField(max_length=5, null=True),
         ),
         migrations.AlterField(
-            model_name='hotelstaff',
-            name='phone',
+            model_name="hotelstaff",
+            name="phone",
             field=models.CharField(max_length=12, null=True),
         ),
         migrations.AlterField(
-            model_name='user',
-            name='active',
+            model_name="user",
+            name="active",
             field=models.BooleanField(default=True),
         ),
         migrations.AlterField(
-            model_name='user',
-            name='mail',
+            model_name="user",
+            name="mail",
             field=models.CharField(max_length=50, null=True),
         ),
         migrations.AlterField(
-            model_name='user',
-            name='name',
+            model_name="user",
+            name="name",
             field=models.CharField(max_length=5, null=True),
         ),
         migrations.AlterField(
-            model_name='user',
-            name='phone',
+            model_name="user",
+            name="phone",
             field=models.CharField(max_length=12, null=True),
         ),
         migrations.DeleteModel(
-            name='HotelAccount',
+            name="HotelAccount",
         ),
     ]

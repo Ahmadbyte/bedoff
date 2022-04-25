@@ -6,38 +6,38 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('hotels', '0001_initial'),
+        ("hotels", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='address',
-            name='created_at',
+            model_name="address",
+            name="created_at",
             field=models.DateTimeField(auto_now=True, null=True),
         ),
         migrations.AddField(
-            model_name='address',
-            name='deleted',
+            model_name="address",
+            name="deleted",
             field=models.BooleanField(default=False),
         ),
         migrations.AddField(
-            model_name='address',
-            name='modified_at',
+            model_name="address",
+            name="modified_at",
             field=models.DateTimeField(auto_now=True, null=True),
         ),
         migrations.AddField(
-            model_name='hotel',
-            name='created_at',
+            model_name="hotel",
+            name="created_at",
             field=models.DateTimeField(auto_now=True, null=True),
         ),
         migrations.AddField(
-            model_name='hotel',
-            name='deleted',
+            model_name="hotel",
+            name="deleted",
             field=models.BooleanField(default=False),
         ),
         migrations.AddField(
-            model_name='hotel',
-            name='modified_at',
+            model_name="hotel",
+            name="modified_at",
             field=models.DateTimeField(auto_now=True, null=True),
         ),
     ]

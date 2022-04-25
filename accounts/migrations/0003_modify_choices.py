@@ -6,27 +6,30 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('accounts', '0002_add_fields_to_hotels'),
+        ("accounts", "0002_add_fields_to_hotels"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='hotelstaff',
-            name='status',
+            model_name="hotelstaff",
+            name="status",
         ),
         migrations.AlterField(
-            model_name='hotelstaff',
-            name='name',
+            model_name="hotelstaff",
+            name="name",
             field=models.CharField(max_length=50, null=True),
         ),
         migrations.AlterField(
-            model_name='hotelstaff',
-            name='role',
-            field=models.CharField(choices=[('GM', 'General Manager'), ('OW', 'Owner'), ('MN', 'Manager'), ('RC', 'Receptionist')], max_length=2),
+            model_name="hotelstaff",
+            name="role",
+            field=models.CharField(
+                choices=[("GM", "General Manager"), ("OW", "Owner"), ("MN", "Manager"), ("RC", "Receptionist")],
+                max_length=2,
+            ),
         ),
         migrations.AlterField(
-            model_name='user',
-            name='name',
+            model_name="user",
+            name="name",
             field=models.CharField(max_length=50, null=True),
         ),
     ]

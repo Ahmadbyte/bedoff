@@ -4,9 +4,7 @@ from rest_framework.response import Response
 
 from base.serializers import BaseModelSerializer
 from bookings import models as booking_models
-
 from hotels import models as hotel_models
-from hotels.serializers.hotel_serializers import HotelModelSerializer
 
 
 class GuestModelSerializer(BaseModelSerializer):
@@ -16,7 +14,7 @@ class GuestModelSerializer(BaseModelSerializer):
 
     class Meta:
         model = booking_models.Guest
-        fields = ['id', 'name', 'employee_TNLID']
+        fields = ["id", "name", "employee_TNLID"]
 
     # booking_id = serializers.IntegerField(required=False)
     def get_object(self, pk):
@@ -28,10 +26,7 @@ class GuestModelSerializer(BaseModelSerializer):
     def update(self, request, *args, **kwargs):
 
         instance = self.get_object(request.id)
-        serializer = GuestModelSerializer(
-            instance=instance,
-            data=args[0]
-        )
+        serializer = GuestModelSerializer(instance=instance, data=args[0])
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data)
@@ -45,8 +40,20 @@ class BookingModelSerializer(BaseModelSerializer):
     class Meta:
         model = booking_models.Booking
         depth = 1
-        fields = ['id', 'preferred_hotels', 'booking_type', 'type_of_booking', 'status', 'room_count_single_occupancy', \
-                  'room_count_double_occupancy', 'guest_count', 'guests', "check_out", "check_in", "booked_hotel"]
+        fields = [
+            "id",
+            "preferred_hotels",
+            "booking_type",
+            "type_of_booking",
+            "status",
+            "room_count_single_occupancy",
+            "room_count_double_occupancy",
+            "guest_count",
+            "guests",
+            "check_out",
+            "check_in",
+            "booked_hotel",
+        ]
 
     guests = GuestModelSerializer(many=True)
     booked_hotel = serializers.CharField()
@@ -82,7 +89,6 @@ class BookingModelSerializer(BaseModelSerializer):
         booking_instance.guests.set(guest_list)
         return booking_instance
 
-
     def get_object(self, pk):
         try:
             return booking_models.Booking.objects.get(pk=pk)
@@ -95,10 +101,7 @@ class BookingModelSerializer(BaseModelSerializer):
         # del args[0]['guests']
         # guests = validated_data.pop("guests")
         # import pdb; pdb.set_trace()
-        serializer = BookingModelSerializer(
-            instance=instance,
-            data=args[0]
-        )
+        serializer = BookingModelSerializer(instance=instance, data=args[0])
         serializer.is_valid(raise_exception=True)
         serializer.save()
         # --error - nafis
