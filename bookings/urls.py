@@ -9,4 +9,5 @@ urlpatterns = [
         booking_views.BookingModelViewSet.as_view({"get": "retrieve", "put": "update"}),
         name="fetch_booking_details",
     ),
+    # path("voucher/<uuid:uid>", booking_views.BookingModelViewSet.as_view({"get": "list", "post": "create"}), name="list_bookings"),
 ]

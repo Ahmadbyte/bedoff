@@ -40,7 +40,8 @@ class HotelModelSerializer(BaseModelSerializer):
     HotelModelSerializer
     """
 
-    address = AddressModelSerializer(many=False)
+    hotel_address = AddressModelSerializer(many=True, read_only=True)
+    address = AddressModelSerializer(many=False, write_only=True)
     manager = HotelStaffModelSerializer(many=False)
     receptionist = HotelStaffModelSerializer(many=False)
     general_manager = HotelStaffModelSerializer(many=False)

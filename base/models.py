@@ -12,7 +12,7 @@ class BaseModelMixin(models.Model):
 
     created_at = models.DateTimeField(auto_now=True, auto_now_add=False, null=True)
     modified_at = models.DateTimeField(auto_now=True, auto_now_add=False, null=True)
-    is_active = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
     created_by = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         related_name="%(class)s_createdby",

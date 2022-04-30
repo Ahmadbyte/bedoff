@@ -4,6 +4,7 @@ from rest_framework import serializers
 from base.serializers import BaseModelSerializer
 from bookings import models as booking_models
 from hotels import models as hotel_models
+from hotels.serializers import hotel_serializers
 
 
 class GuestModelSerializer(BaseModelSerializer):
@@ -22,7 +23,9 @@ class BookingModelSerializer(BaseModelSerializer):
     """
 
     guests = GuestModelSerializer(many=True)
-    booked_hotel = serializers.CharField()
+    hotel_detail = serializers.JSONField(write_only=True)
+    hotel = hotel_serializers.HotelModelSerializer(read_only=True)
+    guest_count = serializers.IntegerField(read_only=True)
 
     class Meta:
         model = booking_models.Booking
@@ -30,13 +33,15 @@ class BookingModelSerializer(BaseModelSerializer):
 
     def create(self, validated_data):
         guests = validated_data.pop("guests")
-        booked_hotel = validated_data.pop("hotel").get("uid")
+        booked_hotel_uid = validated_data.pop("hotel_detail").get("uid")
+
         with transaction.atomic():
-            hotel_instance = hotel_models.Hotel.objects.filter(uid=booked_hotel).first()
-            booking_instance = booking_models.Booking.objects.create(booked_hotel=hotel_instance, **validated_data)
+            hotel_instance = hotel_models.Hotel.objects.filter(uid=booked_hotel_uid).first()
+            validated_data.update({"hotel": hotel_instance})
+            booking_instance = super().create(validated_data=validated_data)
             guest_list = []
             for guest in guests:
-                guest_instance = booking_models.Guest.objects.create(booking_id=booking_instance.id, **guest)
+                guest_instance = booking_models.Guest.objects.create(booking=booking_instance, **guest)
                 guest_list.append(guest_instance.id)
             booking_instance.guests.set(guest_list)
         return booking_instance

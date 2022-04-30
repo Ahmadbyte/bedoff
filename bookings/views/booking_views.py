@@ -14,4 +14,4 @@ class BookingModelViewSet(FiltersMixin, BaseModelViewSet):
     lookup_field = "uid"
     serializer_class = booking_serializers.BookingModelSerializer
     filter_backends = (filters.OrderingFilter,)
-    queryset = booking_models.Booking.objects.all()
+    queryset = booking_models.Booking.objects.all().order_by("-created_at")

@@ -52,7 +52,7 @@ class Hotel(BaseModelMixin):
 
 
 class HotelAddress(AddressMixin):
-    hotel = models.ForeignKey(Hotel, related_name="address", on_delete=models.DO_NOTHING, null=True)
+    hotel = models.ForeignKey(Hotel, related_name="hotel_address", on_delete=models.DO_NOTHING, null=True)
 
 
 # class HotelRoom(BaseModelMixin):
