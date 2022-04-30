@@ -30,7 +30,7 @@ ALLOWED_HOSTS = ["*"]
 
 # Application definition
 
-INSTALLED_APPS = [
+DJANGO_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -39,13 +39,18 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "rest_framework_swagger",
-    "bookings",
-    "hotels",
-    "accounts",
     "django_extensions",
     "filters",
     "corsheaders",
 ]
+
+BEDOFF_APPS = [
+    "accounts",
+    "bookings",
+    "hotels",
+]
+
+INSTALLED_APPS = DJANGO_APPS + BEDOFF_APPS
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -86,7 +91,6 @@ CORS_ALLOW_HEADERS = [
     "x-requested-with",
 ]
 
-
 ROOT_URLCONF = "bedoff.urls"
 
 TEMPLATES = [
@@ -113,10 +117,10 @@ WSGI_APPLICATION = "bedoff.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        "NAME": "bedoff_db",
+        "NAME": "bedoff",
         "USER": "bedoff",
         "PASSWORD": "bedoff",
-        "HOST": "mysqldb",  # Or an IP Address that your DB is hosted on
+        "HOST": "bedoff_mysqldb",  # Or an IP Address that your DB is hosted on
         "PORT": "3306",
     }
 }
@@ -196,3 +200,5 @@ JWT_AUTH = {
     "JWT_AUTH_HEADER_PREFIX": "JWT",
     "JWT_AUTH_COOKIE": None,
 }
+
+AUTH_USER_MODEL = "accounts.User"
