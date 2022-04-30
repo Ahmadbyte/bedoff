@@ -1,58 +1,68 @@
 from django.db import models
 
-from accounts import models as accounts_models
-from base.models import BaseModelMixin
+from base.models import AddressMixin, BaseModelMixin
 
 
-class Address(BaseModelMixin):
-    name = models.CharField(
-        max_length=1024,
+class HotelStaff(BaseModelMixin):
+    """
+    HotelStaff
+    """
+
+    first_name = models.CharField(max_length=128, null=True)
+    middle_name = models.CharField(max_length=128, null=True)
+    last_name = models.CharField(max_length=128, null=True)
+    phone_number = models.CharField(max_length=15, null=True, blank=True)
+
+    RECEPTIONIST = 4
+    MANAGER = 3
+    OWNER = 1
+    GENERAL_MANAGER = 2
+
+    STAFF_TYPE_CHOICES = (
+        (
+            RECEPTIONIST,
+            "Receptionist",
+        ),
+        (
+            MANAGER,
+            "Manager",
+        ),
+        (
+            OWNER,
+            "Owner",
+        ),
+        (
+            GENERAL_MANAGER,
+            "General Manager",
+        ),
     )
-
-    address1 = models.CharField(
-        max_length=1024,
-    )
-
-    address2 = models.CharField(
-        max_length=1024,
-    )
-
-    zip_code = models.CharField(
-        max_length=12,
-    )
-
-    city = models.CharField(
-        max_length=1024,
-    )
-
-    country = models.CharField(max_length=3)
-
-    map_url = models.CharField(max_length=400)
-
-    class Meta:
-        verbose_name = "Address"
-        verbose_name_plural = "Addresses"
+    staff_type = models.PositiveSmallIntegerField(default=OWNER, choices=STAFF_TYPE_CHOICES)
 
 
 class Hotel(BaseModelMixin):
-    address = models.ForeignKey(Address, on_delete=models.DO_NOTHING)
-    manager = models.ForeignKey(accounts_models.User, related_name="manager", on_delete=models.DO_NOTHING, null=True)
+    name = models.CharField(max_length=128, unique=True)
+    manager = models.ForeignKey(HotelStaff, related_name="manager_hotels", on_delete=models.DO_NOTHING, null=True)
     receptionist = models.ForeignKey(
-        accounts_models.User, related_name="receptionist", on_delete=models.DO_NOTHING, null=True
+        HotelStaff, related_name="receptionist_hotels", on_delete=models.DO_NOTHING, null=True
     )
     general_manager = models.ForeignKey(
-        accounts_models.User, related_name="general_manager", on_delete=models.DO_NOTHING, null=True
+        HotelStaff, related_name="general_manager_hotels", on_delete=models.DO_NOTHING, null=True
     )
-    owner = models.ForeignKey(accounts_models.User, related_name="owner", on_delete=models.DO_NOTHING, null=True)
-    account = models.ForeignKey(accounts_models.UserBankAccount, on_delete=models.DO_NOTHING, null=True)
-
-    def __str__(self):
-        return "HotelId: " + str(self.id)
+    owner = models.ForeignKey(HotelStaff, related_name="owner_hotels", on_delete=models.DO_NOTHING, null=True)
 
 
-class RoomDetails(models.Model):
-    MealPlan = ((1, "Plan 1"), (2, "Plan 2"))
-    meal_plan = models.IntegerField(choices=MealPlan)
+class HotelAddress(AddressMixin):
+    hotel = models.ForeignKey(Hotel, related_name="hotel_address", on_delete=models.DO_NOTHING, null=True)
 
-    def __str__(self):
-        return "HotelId: " + str(self.id)
+
+# class HotelRoom(BaseModelMixin):
+#     """
+#     HotelRoom
+#     """
+#     PLAN_1 = 1
+#     PLAN_2 = 2
+#     MEAL_PLAN_CHOICES = ((PLAN_1, "Plan 1"), (PLAN_2, "Plan 2"))
+#     meal_plan = models.IntegerField(choices=MEAL_PLAN_CHOICES)
+#
+#     def __str__(self):
+#         return "HotelId: " + str(self.id)

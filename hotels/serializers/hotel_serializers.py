@@ -11,7 +11,7 @@ class AddressModelSerializer(BaseModelSerializer):
     """
 
     class Meta:
-        model = hotel_models.Address
+        model = hotel_models.HotelAddress
         fields = "__all__"
 
 
@@ -25,13 +25,13 @@ class BankAccountModelSerializer(BaseModelSerializer):
         fields = "__all__"
 
 
-class UserModelSerializer(BaseModelSerializer):
+class HotelStaffModelSerializer(BaseModelSerializer):
     """
     HotelStaffModelSerializer
     """
 
     class Meta:
-        model = account_models.User
+        model = hotel_models.HotelStaff
         fields = "__all__"
 
 
@@ -40,17 +40,16 @@ class HotelModelSerializer(BaseModelSerializer):
     HotelModelSerializer
     """
 
+    hotel_address = AddressModelSerializer(many=True, read_only=True)
+    address = AddressModelSerializer(many=False, write_only=True)
+    manager = HotelStaffModelSerializer(many=False)
+    receptionist = HotelStaffModelSerializer(many=False)
+    general_manager = HotelStaffModelSerializer(many=False)
+    owner = HotelStaffModelSerializer(many=False)
+
     class Meta:
         model = hotel_models.Hotel
-        depth = 2
         fields = "__all__"
-
-    address = AddressModelSerializer(many=False)
-    manager = UserModelSerializer(many=False)
-    receptionist = UserModelSerializer(many=False)
-    general_manager = UserModelSerializer(many=False)
-    owner = UserModelSerializer(many=False)
-    account = BankAccountModelSerializer(many=False)
 
     def create(self, validated_data):
         """
@@ -58,29 +57,24 @@ class HotelModelSerializer(BaseModelSerializer):
         """
         with transaction.atomic():
             address_data = validated_data.pop("address")
-            address_instance = hotel_models.Address.objects.create(**address_data)
-
             manager_data = validated_data.pop("manager")
-            manager_instance = account_models.User.objects.create(**manager_data)
-
             receptionist_data = validated_data.pop("receptionist")
-            receptionist_instance = account_models.User.objects.create(**receptionist_data)
-
             general_manager_data = validated_data.pop("general_manager")
-            general_manager_instance = account_models.User.objects.create(**general_manager_data)
-
             owner_data = validated_data.pop("owner")
-            owner_instance = account_models.User.objects.create(**owner_data)
 
-            account_data = validated_data.pop("account")
-            account_instance = account_models.User.objects.create(**account_data)
-
-            return hotel_models.Hotel.objects.create(
-                owner=owner_instance,
-                receptionist=receptionist_instance,
-                general_manager=general_manager_instance,
-                account=account_instance,
-                manager=manager_instance,
-                address=address_instance,
-                **validated_data
+            owner_instance = hotel_models.HotelStaff.objects.create(**owner_data)
+            receptionist_instance = hotel_models.HotelStaff.objects.create(**receptionist_data)
+            general_manager_instance = hotel_models.HotelStaff.objects.create(**general_manager_data)
+            manager_instance = hotel_models.HotelStaff.objects.create(**manager_data)
+            validated_data.update(
+                {
+                    "owner": owner_instance,
+                    "manager": manager_instance,
+                    "receptionist": receptionist_instance,
+                    "general_manager": general_manager_instance,
+                }
             )
+            hotel_instance = super().create(validated_data=validated_data)
+            hotel_models.HotelAddress.objects.create(**address_data, hotel=hotel_instance)
+
+            return hotel_instance
