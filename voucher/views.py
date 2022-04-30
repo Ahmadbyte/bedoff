@@ -1,13 +1,9 @@
 from django.shortcuts import render
 
 # Create your views here.
-import pdfkit
-from django.http import HttpResponse
-from django.template import loader
+from voucher.service.process import html_to_pdf
+
 
 def create_pdf(request):
-    html = loader.render_to_string('test.html', {})
-    output= pdfkit.from_string(html, output_path=False)
-    response = HttpResponse(content_type="application/pdf")
-    response.write(output)
-    return response
+
+    return html_to_pdf()
