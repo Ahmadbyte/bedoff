@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import datetime
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -48,6 +49,7 @@ BEDOFF_APPS = [
     "accounts",
     "bookings",
     "hotels",
+    "voucher"
 ]
 
 INSTALLED_APPS = DJANGO_APPS + BEDOFF_APPS
@@ -93,10 +95,18 @@ CORS_ALLOW_HEADERS = [
 
 ROOT_URLCONF = "bedoff.urls"
 
+STATICFILES_DIR = (os.path.join(BASE_DIR, 'static'),)
+
+PROJECT_PATH = os.path.realpath(os.path.dirname(__file__))
+#
+# TEMPLATE_DIRS = [
+#     os.path.join(PROJECT_PATH, 'templates/'),
+# ]
+
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [os.path.join(BASE_DIR, 'templates')],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -108,6 +118,8 @@ TEMPLATES = [
         },
     },
 ]
+
+
 
 WSGI_APPLICATION = "bedoff.wsgi.application"
 

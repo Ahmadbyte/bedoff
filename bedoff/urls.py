@@ -24,4 +24,5 @@ urlpatterns = [
     path("api/v1/hotels/", include("hotels.urls")),
     path("api-token-auth/", obtain_jwt_token, name=""),
     path("api-token-refresh/", refresh_jwt_token),
+    path("api/v1/voucher/", include("voucher.urls"))
 ]

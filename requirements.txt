@@ -11,3 +11,4 @@ django-extensions==3.1.5
 drf-url-filters==0.5.1
 django-cors-headers==3.10.1
 djangorestframework-jwt==1.11.0
+pdfkit~=1.0.0
