@@ -65,12 +65,15 @@ class HotelModelSerializer(BaseModelSerializer):
             receptionist_instance = hotel_models.HotelStaff.objects.create(**receptionist_data)
             general_manager_instance = hotel_models.HotelStaff.objects.create(**general_manager_data)
             manager_instance = hotel_models.HotelStaff.objects.create(**manager_data)
-
+            validated_data.update(
+                {
+                    "owner": owner_instance,
+                    "manager": manager_instance,
+                    "receptionist": receptionist_instance,
+                    "general_manager": general_manager_instance,
+                }
+            )
             hotel_instance = super().create(validated_data=validated_data)
             hotel_models.HotelAddress.objects.create(**address_data, hotel=hotel_instance)
-            hotel_instance.owner.add(owner_instance)
-            hotel_instance.receptionist.add(receptionist_instance)
-            hotel_instance.general_manager.add(general_manager_instance)
-            hotel_instance.manager.add(manager_instance)
 
             return hotel_instance
