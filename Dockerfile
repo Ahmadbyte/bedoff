@@ -4,11 +4,10 @@ FROM python:3.8
 # Ubuntu version
 FROM ubuntu:18.04
 
-RUN apt-get update
+RUN apt-get update -y
 
 # configure pdfkit
 RUN apt-get install wkhtmltopdf -y
-RUN apt-get update -y
 RUN apt-get install xvfb -y
 
 # Installing pip for managing Python packages
