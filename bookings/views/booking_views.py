@@ -25,7 +25,7 @@ class DownloadBookingVoucherAPIView(BaseAPIView):
     DownloadBookingVoucherAPIView
     """
 
-    voucher_pdf = "bookings/vouchers/templates/booking_voucher.html"
+    voucher_pdf = "booking_voucher.html"
 
     def html_to_pdf(self, voucher_context: dict):
         """
@@ -61,4 +61,4 @@ class DownloadBookingVoucherAPIView(BaseAPIView):
         booking_uid = kwargs.get("booking_id")
         booking_obj = booking_models.Booking.objects.filter(uid=booking_uid).first()
         context = self.compute_context_for_rendering_voucher(booking_obj)
-        self.html_to_pdf(voucher_context=context)
+        return self.html_to_pdf(voucher_context=context)
