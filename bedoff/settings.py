@@ -118,7 +118,6 @@ TEMPLATES = [
     },
 ]
 
-
 WSGI_APPLICATION = "bedoff.wsgi.application"
 
 # Database
@@ -212,3 +211,5 @@ JWT_AUTH = {
 }
 
 AUTH_USER_MODEL = "accounts.User"
+
+USE_X_FORWARDED_HOST = True
