@@ -6,12 +6,10 @@ FROM ubuntu:18.04
 
 RUN apt-get update
 
-#configure pdfkit
+# configure pdfkit
 RUN apt-get install wkhtmltopdf -y
 RUN apt-get update -y
 RUN apt-get install xvfb -y
-
-RUN apt-get update -y
 
 RUN mv /usr/bin/wkhtmltopdf /usr/bin/wkhtmltopdf_bin
 RUN mkdir /opt/wkhtmltopdf_conf/
@@ -19,7 +17,6 @@ RUN mkdir /opt/wkhtmltopdf_conf/
 ADD wkhtmltopdf.sh /opt/wkhtmltopdf_conf/
 RUN chmod +x /opt/wkhtmltopdf_conf/wkhtmltopdf.sh
 RUN ln -s /opt/wkhtmltopdf_conf/wkhtmltopdf.sh /usr/bin/wkhtmltopdf
-
 
 # Installing pip for managing Python packages
 RUN apt-get install -y python3-pip

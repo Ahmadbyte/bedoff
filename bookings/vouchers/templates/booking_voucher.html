@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Vouchers</title>
+
+        <style>
+            body{ margin: 20px;
+            font-family:  Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        font-weight:lighter;}
+        </style>
+    </head>
+
+    <body>
+        <div class="Header" style="height: 160px;  display: flex;">
+            <div style="height: 120px; width: 160px; background-color: rgb(62, 216, 62);">
+                <div style="height: 70px; width: 160px; margin-left: 50px; margin-top: 50px; background-color: white;">
+                    <img src="https://ops.bedoff.com/images/BedoffLogo.png" height="50px" width="90px" style="margin-left: 32px; margin-top: 20px;">
+                </div>
+
+
+            </div>
+            <div style="height: 160px; width: 250px;  margin-left: 68%;">
+
+                <div style=" height: 20px; margin-top: 50px;text-align: end; padding-right: 20px;"> <h4>Booking Date: {{booking_date}}</h4></div>
+                <div style=" height: 20px;text-align: end; padding-right: 20px;"> <h4>Booking ID: {{booking_id}}</h4></div>
+                <div style=" height: 20px; text-align: end; padding-right: 20px; color: rgb(25, 197, 25); font-size: larger;" > <h4>CONFIRMED!</h4></div>
+
+
+            </div>
+        </div>
+
+        <div class="Names" style="height: 160px; display: flex; background-color: rgb(255, 255, 255);">
+            <div style="height: 130px; width: 190px;  font-family:Verdana, Geneva, Tahoma, sans-serif; font-size: 18px; text-align:center; margin-top: 10px; padding-top: 50px;">
+            <h4>Names</h4></div>
+            <div style=" margin-top: 70px; margin-left: 40px; font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; font-weight: 100;">{{guest_list}}</div>
+
+
+
+        </div>
+
+<!--        <div class="Meal-plan" style=" height: 110px; display: flex; background-color: rgb(255, 255, 255);">-->
+<!--            <div style="background-color: rgb(255, 255, 255); height: 100px; width: 170px;  font-family:Verdana, Geneva, Tahoma, sans-serif; font-size: 18px; text-align: center; padding-left: 20px; ">-->
+<!--            <h4>Meal Plan</h4></div>-->
+<!--            <div style=" height: 80px; background-color:rgb(255, 255, 255) ; margin-left: 40px; font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; font-size: large; padding-top: 20px; font-weight: 100;">Alok Roy, Karandeep Sing, Mohammed Shayan Hasin, Md Imteyza-->
+<!--                Breakfast & Dinner</div>-->
+<!--        -->
+<!--        -->
+
+        </div>
+
+        <div class="Hotel" style=" height: 110px; display: flex; background-color: rgb(255, 255, 255);">
+            <div style="background-color: rgb(255, 255, 255); height: 100px; width: 170px;  font-family:Verdana, Geneva, Tahoma, sans-serif; font-size: 18px; text-align: center; padding-left: 20px; ">
+            <h4>Hotel</h4></div>
+            <div style=" height: 80px; background-color:rgb(255, 255, 255) ; margin-left: 40px; font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; font-size: large; padding-top: 20px; font-weight: 100;">
+                {{hotel_name}}</div>
+
+
+
+        </div>
+
+        <div class="Address" style=" height: 110px; display: flex; background-color: rgb(255, 255, 255);">
+            <div style="background-color: rgb(255, 255, 255); height: 100px; width: 170px;  font-family:Verdana, Geneva, Tahoma, sans-serif; font-size: 18px; text-align: center; padding-left: 20px; ">
+            <h4>Address</h4></div>
+            <div style=" height: 80px; background-color:rgb(255, 255, 255) ; margin-left: 40px; font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; font-size: large; padding-top: 20px; font-weight: 100;">
+                {{hotel_address}}</div>
+
+
+
+        </div>
+
+        <div class="Location" style=" height: 110px; display: flex; background-color: rgb(255, 255, 255);">
+            <div style="background-color: rgb(255, 255, 255); height: 100px; width: 170px;  font-family:Verdana, Geneva, Tahoma, sans-serif; font-size: 18px; text-align: center; padding-left: 20px; ">
+            <h4>Location</h4></div>
+            <div style=" height: 80px; background-color:rgb(255, 255, 255) ; margin-left: 40px; font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; font-size: large; padding-top: 20px; font-weight: 100;">  <a href={{hotel_link}}> Open in Google maps</a></div>
+
+
+
+        </div>
+
+        <div class="Booking-details" style="background-color: rgb(255, 255, 255); display: flex; justify-content: space-around; height: 200px; margin-left: 230px; ">
+
+           <div class="Check-in" style="background-color: rgb(255, 255, 255); height: 200px; width: 300px;">
+
+               <div class="checkin-head" style="background-color: rgb(235, 235, 235) ; height: 50px; width: 300px; border: 0px; border-radius: 50px; text-align: center;padding-top: 1px;  padding-bottom: 15px; "  >
+                   <h2> Check-In</h2>
+               </div>
+
+               <div class="checkin-body" style="border: 2px; border-color: black; height: 135px; border-top: 2px; background-color: rgb(255, 255, 255); text-align: center; padding-top: 20px;"><h1>{{checkin_date}}</h1>{{checkin_day}}</div>
+
+           </div>
+
+           <div class="Nights" style="background-color: rgb(235, 235, 235) ; height: 50px; width: 300px; border: 0px; border-radius: 50px; text-align: center;padding-top: 1px;  padding-bottom: 15px; "  >
+            <h2> Nights</h2>
+
+            <div class="Nights-body" style="border: 2px; border-color: black; height: 135px; border-top: 2px; background-color: rgb(255, 255, 255); text-align: center; padding-top: 20px;"><h1>{{checking_nights_count}}</h1> </div>
+
+
+           </div>
+
+           <div class="Check-out" style="background-color: rgb(235, 235, 235) ; height: 50px; width: 300px; border: 0px; border-radius: 50px; text-align: center;padding-top: 1px;  padding-bottom: 15px; "  >
+            <h2> Check-out</h2>
+
+            <div class="checkout-body" style="border: 2px; border-color: black; height: 135px; border-top: 2px; background-color: rgb(255, 255, 255); text-align: center; padding-top: 20px;"><h1>{{checkout_date}}</h1>{{checkout_day}}</div>
+
+
+           </div>
+
+
+
+        </div>
+
+        <div class="Basic-info-1" style="background-color: rgb(255, 255, 255); height: 70px; margin-top: 22px;display: flex;">
+
+          <div class="guest-count" style="background-color: rgb(255, 255, 255); height: 50px; width: 200px; text-align: center; padding-top: 20px;"><b>Total No,<br>
+            Of Guest</b></div>
+           <div class="guestcount-info" style="background-color: rgb(255, 255, 255); height: 70px; width: 420px; text-align: center; border-top-style: solid; border-color: black; border-width: 2px; border-bottom-style: solid; border-color: black; border-width: 1.9px;"><h2>{{guest_count}}</div>
+
+
+
+            <div class="guest-count" style="background-color: rgb(255, 255, 255); height: 50px; width: 200px; text-align: center; padding-top: 20px; margin-left: 120px;"><b>Total No,<br>
+                Of Rooms</b></div>
+               <div class="guestcount-info" style="background-color: rgb(255, 255, 255); height: 70px; width: 420px; text-align: center; border-top-style: solid; border-color: black; border-width: 2px; border-bottom-style: solid; border-color: black; border-width: 1.9px;"><h2>{{room_count}}</div>
+        </div>
+
+        <div class="Basic-info-2" style="background-color: rgb(255, 255, 255); height: 70px; margin-top: 22px;display: flex;">
+
+            <div class="guest-count" style="background-color: rgb(255, 255, 255); height: 50px; width: 200px; text-align: center; padding-top: 20px;"><b>Single<br>
+                Occupancy</b></div>
+             <div class="guestcount-info" style="background-color: rgb(255, 255, 255); height: 70px; width: 420px; text-align: center; border-top-style: solid; border-color: black; border-width: 2px; border-bottom-style: solid; border-color: black; border-width: 1.9px;"><h2>1 Single</div>
+
+
+
+              <div class="guest-count" style="background-color: rgb(255, 255, 255); height: 50px; width: 200px; text-align: center; padding-top: 20px; margin-left: 120px;"><b>Double
+                <br>
+                Occupancy</b></div>
+                 <div class="guestcount-info" style="background-color: rgb(255, 255, 255); height: 70px; width: 420px; text-align: center; border-top-style: solid; border-color: black; border-width: 2px; border-bottom-style: solid; border-color: black; border-width: 1.9px; "><h2>1 Double</div>
+          </div>
+
+        <div class=" hotel-image" style="background-color: rgb(255, 255, 255); height: 380px; margin-top: 30px; display: flex; justify-content: end;"> <img src="https://www.prlog.org/12134325-jumeirah-messilah-beach-hotel-exterior-hero.jpg" height="370px" width="1115px">
+        </div>
+
+
+        <div class="Support" style=" height: 55px; display: flex; background-color: rgb(255, 255, 255);">
+            <div style="background-color: rgb(255, 255, 255); height: 60px; width: 170px;  font-family:Verdana, Geneva, Tahoma, sans-serif; font-size: 18px; text-align: center; padding-left: 20px; ">
+            <h4>Support</h4></div>
+            <div style=" height: 40px; background-color:rgb(255, 255, 255) ; margin-left: 40px; font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; font-size: large; padding-top: 20px; font-weight: 100;">For any issue during Check-In and you stay at the hotel feel free to
+                contact us at:</div>
+        </div>
+
+        <div class="support-email" style="background-color: rgb(255, 255, 255); height: 40px; display: flex; width: 60%; margin-left: 229px;">
+
+           <div class="emial-support" style="background-color: rgb(255, 255, 255); display: block; width: 100%; height: 40px; padding-left: 60px; font-size: 18px; padding-top: 10px; "> Email- <a href="reservations@bedoff.com">reservations@bedoff.com</a> </div>
+
+            </div>
+
+            <div class="support-phone" style="background-color: rgb(255, 255, 255); height: 40px; display: flex; width: 60%; margin-left: 229px;">
+
+                <div class="phone-support" style="background-color: rgb(255, 255, 255); display: block; width: 100%; height: 40px; padding-left: 60px; font-size: 18px; padding-top: 10px;">
+
+                   Phone: +91 9031011561, +91 9031011562, +91 9031011563, +91 9031011564
+                 </div>
+
+
+
+
+
+
+    </body>
+</html>

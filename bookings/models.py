@@ -57,6 +57,3 @@ class Booking(BaseModelMixin):
     @property
     def guest_count(self):
         return self.guests.all().count()
-
-    def __str__(self):
-        return "Booking Group ID: " + str(self.id)
