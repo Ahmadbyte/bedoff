@@ -17,6 +17,16 @@ class GuestModelSerializer(BaseModelSerializer):
         fields = "__all__"
 
 
+class UpdateBookingModelSerializer(BaseModelSerializer):
+    """
+    BookingModelSerializer
+    """
+
+    class Meta:
+        model = booking_models.Booking
+        fields = "__all__"
+
+
 class BookingModelSerializer(BaseModelSerializer):
     """
     BookingModelSerializer

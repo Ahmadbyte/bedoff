@@ -32,7 +32,7 @@ class Booking(BaseModelMixin):
         (1, "HNS"),
         (2, "Relocation"),
     )
-    stay_type = models.IntegerField(choices=BOOKING_STAY_TYPE_CHOICES)
+    stay_type = models.IntegerField(choices=BOOKING_STAY_TYPE_CHOICES, null=True)
 
     IN_PROGRESS = 1
     COMPLETED = 2
@@ -50,7 +50,7 @@ class Booking(BaseModelMixin):
     check_out = models.DateTimeField(auto_now=True, auto_now_add=False, null=True)
     single_occupancy_room_count = models.IntegerField(null=True)
     double_occupancy_room_type = models.IntegerField(null=True)
-    guests = models.ManyToManyField(Guest)
+    guests = models.ManyToManyField(Guest, null=True)
     hotel = models.ForeignKey(Hotel, on_delete=models.DO_NOTHING, null=True)
     phone_number = models.CharField(max_length=15, null=True, blank=True)
 

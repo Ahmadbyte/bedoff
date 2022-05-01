@@ -19,6 +19,14 @@ class BookingModelViewSet(FiltersMixin, BaseModelViewSet):
     filter_backends = (filters.OrderingFilter,)
     queryset = booking_models.Booking.objects.all().order_by("-created_at")
 
+    def get_serializer_class(self):
+        """
+        get_serializer_class
+        """
+        if self.request.method == "PUT":
+            return booking_serializers.UpdateBookingModelSerializer
+        return booking_serializers.BookingModelSerializer
+
 
 class DownloadBookingVoucherAPIView(BaseAPIView):
     """
