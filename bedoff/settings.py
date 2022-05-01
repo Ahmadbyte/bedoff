@@ -49,7 +49,6 @@ BEDOFF_APPS = [
     "accounts",
     "bookings",
     "hotels",
-    "voucher"
 ]
 
 INSTALLED_APPS = DJANGO_APPS + BEDOFF_APPS
@@ -95,7 +94,7 @@ CORS_ALLOW_HEADERS = [
 
 ROOT_URLCONF = "bedoff.urls"
 
-STATICFILES_DIR = (os.path.join(BASE_DIR, 'static'),)
+STATICFILES_DIR = (os.path.join(BASE_DIR, "static"),)
 
 PROJECT_PATH = os.path.realpath(os.path.dirname(__file__))
 #
@@ -106,7 +105,7 @@ PROJECT_PATH = os.path.realpath(os.path.dirname(__file__))
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join(BASE_DIR, 'templates')],
+        "DIRS": [os.path.join(BASE_DIR, "templates")],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -118,7 +117,6 @@ TEMPLATES = [
         },
     },
 ]
-
 
 
 WSGI_APPLICATION = "bedoff.wsgi.application"
