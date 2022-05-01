@@ -6,11 +6,10 @@ FROM ubuntu:18.04
 
 RUN apt-get update
 
+# configure pdfkit
 RUN apt-get install wkhtmltopdf -y
 RUN apt-get update -y
 RUN apt-get install xvfb -y
-
-RUN apt-get update -y
 
 # Installing pip for managing Python packages
 RUN apt-get install -y python3-pip
