@@ -1,5 +1,6 @@
 from django.db import models
 
+import accounts.models as accounts_model
 from base.models import AddressMixin, BaseModelMixin
 
 
@@ -49,6 +50,7 @@ class Hotel(BaseModelMixin):
         HotelStaff, related_name="general_manager_hotels", on_delete=models.DO_NOTHING, null=True
     )
     owner = models.ForeignKey(HotelStaff, related_name="owner_hotels", on_delete=models.DO_NOTHING, null=True)
+    account = models.ForeignKey(accounts_model.UserBankAccount, related_name="hotel_account", on_delete=models.DO_NOTHING, null=True)
 
 
 class HotelAddress(AddressMixin):

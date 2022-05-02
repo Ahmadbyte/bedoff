@@ -46,6 +46,7 @@ class HotelModelSerializer(BaseModelSerializer):
     receptionist = HotelStaffModelSerializer(many=False)
     general_manager = HotelStaffModelSerializer(many=False)
     owner = HotelStaffModelSerializer(many=False)
+    account = BankAccountModelSerializer(many=False)
 
     class Meta:
         model = hotel_models.Hotel
