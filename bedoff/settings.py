@@ -41,7 +41,6 @@ DJANGO_APPS = [
     "rest_framework",
     "rest_framework_swagger",
     "django_extensions",
-    "filters",
     "corsheaders",
 ]
 

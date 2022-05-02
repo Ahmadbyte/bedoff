@@ -1,7 +1,6 @@
 import pdfkit
 from django.http import HttpResponse
 from django.template import loader
-from filters.mixins import FiltersMixin
 from url_filter.integrations.drf import DjangoFilterBackend
 
 from base.views import BaseAPIView, BaseModelViewSet
@@ -9,7 +8,7 @@ from bookings import models as booking_models
 from bookings.serializers import booking_serializers
 
 
-class BookingModelViewSet(FiltersMixin, BaseModelViewSet):
+class BookingModelViewSet(BaseModelViewSet):
     """
     BookingModelViewSet
     """
