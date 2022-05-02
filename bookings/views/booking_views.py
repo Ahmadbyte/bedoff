@@ -2,7 +2,7 @@ import pdfkit
 from django.http import HttpResponse
 from django.template import loader
 from filters.mixins import FiltersMixin
-from rest_framework import filters
+from url_filter.integrations.drf import DjangoFilterBackend
 
 from base.views import BaseAPIView, BaseModelViewSet
 from bookings import models as booking_models
@@ -16,8 +16,11 @@ class BookingModelViewSet(FiltersMixin, BaseModelViewSet):
 
     lookup_field = "uid"
     serializer_class = booking_serializers.BookingModelSerializer
-    filter_backends = (filters.OrderingFilter,)
     queryset = booking_models.Booking.objects.all().order_by("-created_at")
+    filter_backends = [DjangoFilterBackend]
+    filter_fields = [
+        "booking_status",
+    ]
 
     def get_serializer_class(self):
         """
