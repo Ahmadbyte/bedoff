@@ -13,6 +13,8 @@ import datetime
 import os
 from pathlib import Path
 
+from decouple import config as env_config
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 from django.conf import settings
 
@@ -125,10 +127,10 @@ WSGI_APPLICATION = "bedoff.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        "NAME": "bedoff",
-        "USER": "bedoff",
-        "PASSWORD": "bedoff",
-        "HOST": "bedoff_mysqldb",  # Or an IP Address that your DB is hosted on
+        "NAME": env_config("DATABASE_NAME", default="bedoff"),
+        "USER": env_config("DATABASE_USER", default="bedoff"),
+        "PASSWORD": env_config("DATABASE_PASSWORD", default="bedoff"),
+        "HOST": env_config("DATABASE_HOST", default="bedoff_mysqldb"),
         "PORT": "3306",
     }
 }
