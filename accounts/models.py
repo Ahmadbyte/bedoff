@@ -26,16 +26,3 @@ class User(
             "Designates whether this user should be treated as active. " "Unselect this instead of deleting accounts."
         ),
     )
-
-
-class UserBankAccount(BaseModelMixin):
-    name = models.CharField(max_length=50, null=True)
-    ifsc = models.CharField(max_length=50, null=True)
-    account_number = models.CharField(max_length=100, null=True)
-    address = models.CharField(max_length=100, null=True)
-    account_type = models.IntegerField(null=True)
-    user = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE,
-        related_name="bank_accounts",
-    )

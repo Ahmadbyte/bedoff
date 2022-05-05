@@ -1,6 +1,5 @@
 from django.db import models
 
-import accounts.models as accounts_model
 from base.models import AddressMixin, BaseModelMixin
 
 
@@ -40,6 +39,14 @@ class HotelStaff(BaseModelMixin):
     staff_type = models.PositiveSmallIntegerField(default=OWNER, choices=STAFF_TYPE_CHOICES)
 
 
+class HotelBankAccount(BaseModelMixin):
+    name = models.CharField(max_length=50, null=True)
+    ifsc = models.CharField(max_length=50, null=True)
+    account_number = models.CharField(max_length=100, null=True)
+    address = models.CharField(max_length=100, null=True)
+    account_type = models.IntegerField(null=True)
+
+
 class Hotel(BaseModelMixin):
     name = models.CharField(max_length=128, unique=True)
     manager = models.ForeignKey(HotelStaff, related_name="manager_hotels", on_delete=models.DO_NOTHING, null=True)
@@ -50,7 +57,6 @@ class Hotel(BaseModelMixin):
         HotelStaff, related_name="general_manager_hotels", on_delete=models.DO_NOTHING, null=True
     )
     owner = models.ForeignKey(HotelStaff, related_name="owner_hotels", on_delete=models.DO_NOTHING, null=True)
-    account = models.ForeignKey(accounts_model.UserBankAccount, related_name="hotel_account", on_delete=models.DO_NOTHING, null=True)
 
 
 class HotelAddress(AddressMixin):
