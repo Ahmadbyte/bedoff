@@ -46,6 +46,7 @@ class HotelModelSerializer(BaseModelSerializer):
     receptionist = HotelStaffModelSerializer(many=False)
     general_manager = HotelStaffModelSerializer(many=False)
     owner = HotelStaffModelSerializer(many=False)
+    account = BankAccountModelSerializer(many=False)
 
     class Meta:
         model = hotel_models.Hotel
@@ -76,6 +77,5 @@ class HotelModelSerializer(BaseModelSerializer):
             )
             hotel_instance = super().create(validated_data=validated_data)
             hotel_models.HotelAddress.objects.create(**address_data, hotel=hotel_instance)
-            account = BankAccountModelSerializer(many=False)
 
             return hotel_instance
