@@ -2,6 +2,7 @@ from django.db import transaction
 
 from base.serializers import BaseModelSerializer
 from hotels import models as hotel_models
+import accounts.models as account_models
 
 
 class AddressModelSerializer(BaseModelSerializer):
@@ -11,6 +12,16 @@ class AddressModelSerializer(BaseModelSerializer):
 
     class Meta:
         model = hotel_models.HotelAddress
+        fields = "__all__"
+
+
+class BankAccountModelSerializer(BaseModelSerializer):
+    """
+    BankAccountModelSerializer
+    """
+
+    class Meta:
+        model = hotel_models.HotelBankAccount
         fields = "__all__"
 
 
@@ -65,5 +76,6 @@ class HotelModelSerializer(BaseModelSerializer):
             )
             hotel_instance = super().create(validated_data=validated_data)
             hotel_models.HotelAddress.objects.create(**address_data, hotel=hotel_instance)
+            account = BankAccountModelSerializer(many=False)
 
             return hotel_instance

@@ -57,6 +57,8 @@ class Hotel(BaseModelMixin):
         HotelStaff, related_name="general_manager_hotels", on_delete=models.DO_NOTHING, null=True
     )
     owner = models.ForeignKey(HotelStaff, related_name="owner_hotels", on_delete=models.DO_NOTHING, null=True)
+    account = models.ForeignKey(HotelBankAccount, related_name="hotel_account",
+                                on_delete=models.DO_NOTHING, null=True)
 
 
 class HotelAddress(AddressMixin):
