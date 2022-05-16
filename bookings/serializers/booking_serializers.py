@@ -33,7 +33,7 @@ class BookingModelSerializer(BaseModelSerializer):
     """
 
     guests = GuestModelSerializer(many=True)
-    hotel_detail = serializers.JSONField(write_only=True)
+    booked_hotel = serializers.JSONField(write_only=True)
     hotel = hotel_serializers.HotelModelSerializer(read_only=True)
     guest_count = serializers.IntegerField(read_only=True)
 
@@ -43,7 +43,7 @@ class BookingModelSerializer(BaseModelSerializer):
 
     def create(self, validated_data):
         guests = validated_data.pop("guests")
-        booked_hotel_uid = validated_data.pop("hotel_detail").get("uid")
+        booked_hotel_uid = validated_data.pop("booked_hotel").get("uid")
 
         with transaction.atomic():
             hotel_instance = hotel_models.Hotel.objects.filter(uid=booked_hotel_uid).first()
