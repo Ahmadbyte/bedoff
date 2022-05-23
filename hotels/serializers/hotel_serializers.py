@@ -2,7 +2,6 @@ from django.db import transaction
 
 from base.serializers import BaseModelSerializer
 from hotels import models as hotel_models
-import accounts.models as account_models
 
 
 class AddressModelSerializer(BaseModelSerializer):
@@ -46,7 +45,8 @@ class HotelModelSerializer(BaseModelSerializer):
     receptionist = HotelStaffModelSerializer(many=False)
     general_manager = HotelStaffModelSerializer(many=False)
     owner = HotelStaffModelSerializer(many=False)
-    account = BankAccountModelSerializer(many=False)
+    bank_account = BankAccountModelSerializer(many=False, write_only=True)
+    bank_account_details = BankAccountModelSerializer(many=True, read_only=True)
 
     class Meta:
         model = hotel_models.Hotel
@@ -62,11 +62,14 @@ class HotelModelSerializer(BaseModelSerializer):
             receptionist_data = validated_data.pop("receptionist")
             general_manager_data = validated_data.pop("general_manager")
             owner_data = validated_data.pop("owner")
+            bank_account = validated_data.pop("bank_account")
 
             owner_instance = hotel_models.HotelStaff.objects.create(**owner_data)
             receptionist_instance = hotel_models.HotelStaff.objects.create(**receptionist_data)
             general_manager_instance = hotel_models.HotelStaff.objects.create(**general_manager_data)
             manager_instance = hotel_models.HotelStaff.objects.create(**manager_data)
+            hotel_models.HotelBankAccount.objects.create(**bank_account)
+
             validated_data.update(
                 {
                     "owner": owner_instance,

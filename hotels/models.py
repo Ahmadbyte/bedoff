@@ -39,14 +39,6 @@ class HotelStaff(BaseModelMixin):
     staff_type = models.PositiveSmallIntegerField(default=OWNER, choices=STAFF_TYPE_CHOICES)
 
 
-class HotelBankAccount(BaseModelMixin):
-    name = models.CharField(max_length=50, null=True)
-    ifsc = models.CharField(max_length=50, null=True)
-    account_number = models.CharField(max_length=100, null=True)
-    address = models.CharField(max_length=100, null=True)
-    account_type = models.IntegerField(null=True)
-
-
 class Hotel(BaseModelMixin):
     name = models.CharField(max_length=128, unique=True)
     manager = models.ForeignKey(HotelStaff, related_name="manager_hotels", on_delete=models.DO_NOTHING, null=True)
@@ -57,22 +49,18 @@ class Hotel(BaseModelMixin):
         HotelStaff, related_name="general_manager_hotels", on_delete=models.DO_NOTHING, null=True
     )
     owner = models.ForeignKey(HotelStaff, related_name="owner_hotels", on_delete=models.DO_NOTHING, null=True)
-    account = models.ForeignKey(HotelBankAccount, related_name="hotel_account",
-                                on_delete=models.DO_NOTHING, null=True)
+
+
+class HotelBankAccount(BaseModelMixin):
+    name = models.CharField(max_length=50, null=True)
+    ifsc = models.CharField(max_length=50, null=True)
+    account_number = models.CharField(max_length=100, null=True)
+    address = models.CharField(max_length=100, null=True)
+
+    # TODO: Add choices here.
+    account_type = models.IntegerField(null=True)
+    hotel = models.ForeignKey(Hotel, related_name="hotel_bank_account", on_delete=models.DO_NOTHING, null=True)
 
 
 class HotelAddress(AddressMixin):
     hotel = models.ForeignKey(Hotel, related_name="hotel_address", on_delete=models.DO_NOTHING, null=True)
-
-
-# class HotelRoom(BaseModelMixin):
-#     """
-#     HotelRoom
-#     """
-#     PLAN_1 = 1
-#     PLAN_2 = 2
-#     MEAL_PLAN_CHOICES = ((PLAN_1, "Plan 1"), (PLAN_2, "Plan 2"))
-#     meal_plan = models.IntegerField(choices=MEAL_PLAN_CHOICES)
-#
-#     def __str__(self):
-#         return "HotelId: " + str(self.id)
