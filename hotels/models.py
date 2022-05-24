@@ -49,6 +49,9 @@ class Hotel(BaseModelMixin):
         HotelStaff, related_name="general_manager_hotels", on_delete=models.DO_NOTHING, null=True
     )
     owner = models.ForeignKey(HotelStaff, related_name="owner_hotels", on_delete=models.DO_NOTHING, null=True)
+    tariff_double_occupancy = models.IntegerField(null=True)
+    tariff_single_occupancy = models.IntegerField(null=True)
+    email = models.CharField(max_length=128, unique=False, null=True)
 
 
 class HotelBankAccount(BaseModelMixin):
