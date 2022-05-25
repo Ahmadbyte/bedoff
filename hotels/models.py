@@ -63,8 +63,8 @@ class HotelBankAccount(BaseModelMixin):
 
     # TODO: Add choices here.
     account_type = models.IntegerField(null=True)
-    hotel = models.ForeignKey(Hotel, related_name="hotel_bank_account", on_delete=models.DO_NOTHING, null=True)
+    hotel = models.OneToOneField(Hotel, related_name="hotel_bank_account", on_delete=models.DO_NOTHING, null=True)
 
 
 class HotelAddress(AddressMixin):
-    hotel = models.ForeignKey(Hotel, related_name="hotel_address", on_delete=models.DO_NOTHING, null=True)
+    hotel = models.OneToOneField(Hotel, related_name="hotel_address", on_delete=models.DO_NOTHING, null=True)

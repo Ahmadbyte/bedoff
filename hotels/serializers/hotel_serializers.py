@@ -39,18 +39,18 @@ class HotelModelSerializer(BaseModelSerializer):
     HotelModelSerializer
     """
 
-    hotel_address = AddressModelSerializer(many=True, read_only=True)
+    hotel_address = AddressModelSerializer(many=False, read_only=True)
     address = AddressModelSerializer(many=False, write_only=True)
     manager = HotelStaffModelSerializer(many=False)
     receptionist = HotelStaffModelSerializer(many=False)
     general_manager = HotelStaffModelSerializer(many=False)
     owner = HotelStaffModelSerializer(many=False)
     bank_account = BankAccountModelSerializer(many=False, write_only=True)
-    hotel_bank_account = BankAccountModelSerializer(many=True, read_only=True)
+    hotel_bank_account = BankAccountModelSerializer(many=False, read_only=True)
 
     class Meta:
         model = hotel_models.Hotel
-        fields = '__all__'
+        fields = "__all__"
 
     def create(self, validated_data):
         """
@@ -68,7 +68,6 @@ class HotelModelSerializer(BaseModelSerializer):
             receptionist_instance = hotel_models.HotelStaff.objects.create(**receptionist_data)
             general_manager_instance = hotel_models.HotelStaff.objects.create(**general_manager_data)
             manager_instance = hotel_models.HotelStaff.objects.create(**manager_data)
-
 
             validated_data.update(
                 {

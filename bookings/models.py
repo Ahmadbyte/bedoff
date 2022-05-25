@@ -53,6 +53,8 @@ class Booking(BaseModelMixin):
     guests = models.ManyToManyField(Guest, null=True)
     hotel = models.ForeignKey(Hotel, on_delete=models.DO_NOTHING, null=True)
     phone_number = models.CharField(max_length=15, null=True, blank=True)
+    total_pay = models.IntegerField(default=0)
+    advance_pay = models.IntegerField(default=0)
 
     @property
     def guest_count(self):
