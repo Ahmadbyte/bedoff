@@ -52,6 +52,7 @@ class Hotel(BaseModelMixin):
     tariff_double_occupancy = models.IntegerField(null=True)
     tariff_single_occupancy = models.IntegerField(null=True)
     email = models.CharField(max_length=128, unique=False, null=True)
+    additional_email = models.CharField(max_length=128, unique=False, null=True)
 
 
 class HotelBankAccount(BaseModelMixin):
