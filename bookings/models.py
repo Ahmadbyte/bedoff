@@ -55,6 +55,8 @@ class Booking(BaseModelMixin):
     phone_number = models.CharField(max_length=15, null=True, blank=True)
     total_pay = models.IntegerField(default=0)
     advance_pay = models.IntegerField(default=0)
+    total_pay_utr = models.CharField(max_length=250, null=True, blank=True)
+    advance_pay_utr = models.CharField(max_length=250, null=True, blank=True)
     check_in_status = models.BooleanField(default=False)
     bills_submitted = models.BooleanField(default=False)
     audit_approval = models.BooleanField(default=False)
