@@ -79,7 +79,7 @@ class DownloadBookingVoucherAPIView(BaseAPIView):
         """
         _get_hotel_address
         """
-        address_obj = hotel_obj.hotel_address.all()[0]
+        address_obj = hotel_obj.hotel_address
         return f"""{address_obj.name}, {address_obj.address1}, {address_obj.address2},
                    {address_obj.zip_code}, {address_obj.city}, {address_obj.state},
                    {address_obj.country}""".strip().strip(
@@ -95,7 +95,7 @@ class DownloadBookingVoucherAPIView(BaseAPIView):
             "booking_date": f"{booking_obj.created_at:%B %d, %Y}",
             "booking_id": booking_obj.uid,
             "hotel_name": booking_obj.hotel.name,
-            "hotel_location_link": booking_obj.hotel.hotel_address.all()[0].map_url,
+            "hotel_location_link": booking_obj.hotel.hotel_address.map_url,
             "checkin_date": f"{booking_obj.check_in:%B %d, %Y}",
             "checkout_date": f"{booking_obj.check_out:%B %d, %Y}",
             "guest_count": len(booking_obj.guests.all()),
