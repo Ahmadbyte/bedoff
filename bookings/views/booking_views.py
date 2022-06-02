@@ -17,9 +17,7 @@ class BookingModelViewSet(BaseModelViewSet):
     serializer_class = booking_serializers.BookingModelSerializer
     queryset = booking_models.Booking.objects.all().order_by("-created_at")
     filter_backends = [DjangoFilterBackend]
-    filter_fields = [
-        "booking_status",
-    ]
+    filter_fields = ["booking_status", "hotel", "id"]
 
     def get_serializer_class(self):
         """
